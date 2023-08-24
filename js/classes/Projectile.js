@@ -1,7 +1,15 @@
-class Projectile {
+class Projectile extends Sprite {
   constructor({ position = { x: 0, y: 0 }, rival }) {
-    this.position = position;
-    this.speed = 10;
+    // this.position = position;
+    super({
+      position,
+      imgSrc:
+        "../../assets/Foozle_2DS0018_Spire_TowerPack_2/Towers Weapons/Tower 04/PNGs/Tower 04 - Level 01 - Projectile.png",
+      imgInfo: {
+        imgCount: 17,
+      },
+    });
+    this.speed = 5;
     this.projectileVelocity = {
       x: 0,
       y: 0,
@@ -10,12 +18,15 @@ class Projectile {
     this.radius = 5;
   }
   drawProjectile() {
-    // let projectileImage = new Image()
-    // projectileImage.src = "../../assets/Foozle_2DS0018_Spire_TowerPack_2/Towers Weapons/Tower 04/Previews/Tower 04 - Level 03 - Projectile.gif"
-    ctx.beginPath();
-    ctx.arc(this.position.x, this.position.y, this.radius, 0, Math.PI * 2);
-    ctx.fillStyle = "red";
-    ctx.fill();
+    // let projectileImage = new Image();
+    // projectileImage.src =
+    //   "../../assets/Foozle_2DS0018_Spire_TowerPack_2/Towers Weapons/Tower 04/PNGs/Tower 04 - Level 01 - Projectile.png";
+    // ctx.drawImage(projectileImage, this.position.x, this.position.y);
+    // ctx.beginPath();
+    // ctx.arc(this.position.x, this.position.y, this.radius, 0, Math.PI * 2);
+    // ctx.fillStyle = "red";
+    // ctx.fill();
+    super.drawSprite();
   }
 
   updateProjectile() {

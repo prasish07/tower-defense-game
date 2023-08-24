@@ -14,6 +14,11 @@ let buildings = [];
 let setTile = undefined;
 let tower;
 
+// different towers
+let tower1;
+let tower2;
+let tower3;
+
 const start = () => {
   canvas = document.getElementById("canvas");
   canvas.height = canvasHeight;

@@ -1,5 +1,12 @@
-class Rival {
+class Rival extends Sprite {
   constructor({ rivalPosition = { x: 0, y: 0 } }) {
+    super({
+      position: rivalPosition,
+      imgSrc: "../../../assets/pngs/output-onlinepngtools.png",
+      imgInfo: {
+        imgCount: 8,
+      },
+    });
     this.index = 0;
     this.rivalPosition = rivalPosition;
     this.width = 50;
@@ -19,10 +26,11 @@ class Rival {
   }
 
   drawRival() {
-    ctx.fillStyle = "red";
-    ctx.beginPath();
-    ctx.arc(this.center.x, this.center.y, this.radius, 0, Math.PI * 2);
-    ctx.fill();
+    super.drawSprite();
+    // ctx.fillStyle = "red";
+    // ctx.beginPath();
+    // ctx.arc(this.center.x, this.center.y, this.radius, 0, Math.PI * 2);
+    // ctx.fill();
     this.drawHealthBar();
   }
 

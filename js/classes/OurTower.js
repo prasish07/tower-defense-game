@@ -1,8 +1,8 @@
 class OurTower {
   constructor() {
-    this.position = { x: 1287, y: 80 };
-    this.size = 80;
-    this.OurTowerHealth = 80 * 2;
+    this.position = { x: 1227, y: 20 };
+    this.size = 200;
+    this.OurTowerHealth = 200;
     this.width = this.size; // Calculate width based on size
 
     this.buildingCenter = {
@@ -12,31 +12,36 @@ class OurTower {
   }
 
   drawTower() {
-    ctx.fillStyle = "red";
-    ctx.beginPath();
-    ctx.arc(
-      this.buildingCenter.x,
-      this.buildingCenter.y,
+    let image = new Image();
+    image.src = "../../assets/pngs/castle.png";
+    ctx.drawImage(
+      image,
+      this.position.x,
+      this.position.y,
       this.size,
-      0,
-      Math.PI * 2
+      this.size
     );
-    ctx.fill();
-    this.drawTowerHeight();
+    // ctx.fillStyle = "red";
+    // ctx.beginPath();
+    // ctx.arc(
+    //   this.buildingCenter.x,
+    //   this.buildingCenter.y,
+    //   this.size,
+    //   0,
+    //   Math.PI * 2
+    // );
+    // ctx.fill();
+    // this.drawTowerHeight();
+    this.drawTowerHealth();
   }
 
-  drawTowerHeight() {
+  drawTowerHealth() {
     ctx.fillStyle = "red";
-    ctx.fillRect(
-      this.buildingCenter.x - 80,
-      this.position.y - 55,
-      this.size * 2,
-      5
-    );
+    ctx.fillRect(this.buildingCenter.x - 80, this.position.y, this.size, 5);
     ctx.fillStyle = "green";
     ctx.fillRect(
       this.buildingCenter.x - 80,
-      this.position.y - 55,
+      this.position.y,
       this.OurTowerHealth,
       5
     );
@@ -46,7 +51,7 @@ class OurTower {
     const distanceX = enemy.center.x - this.buildingCenter.x;
     const distanceY = enemy.center.y - this.buildingCenter.y;
     const distance = Math.hypot(distanceX, distanceY);
-    if (distance < enemy.radius + this.size) {
+    if (distance < this.size - 100) {
       console.log("collided");
       return true;
     }
