@@ -17,7 +17,6 @@ class Building {
     ctx.fillRect(this.position.x, this.position.y, this.size * 2, this.size);
 
     ctx.beginPath();
-    console.log(this.buildingCenter.x, this.buildingCenter.y);
     ctx.arc(
       this.buildingCenter.x,
       this.buildingCenter.y,

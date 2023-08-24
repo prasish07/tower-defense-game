@@ -41,12 +41,9 @@ positionBuildingTile = [
   0, 0, 32, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
   0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 ];
-console.log(positionBuildingTile.length);
 
 const possibleBuilding2D = [];
 
 for (let i = 0; i < positionBuildingTile.length; i += 47) {
   possibleBuilding2D.push(positionBuildingTile.slice(i, i + 47));
 }
-
-console.log(possibleBuilding2D);

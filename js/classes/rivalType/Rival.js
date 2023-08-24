@@ -5,7 +5,12 @@ class Rival {
     this.width = 50;
     this.height = 50;
     this.radius = 30;
+    this.rivalVelocity = {
+      x: 0,
+      y: 0,
+    };
     this.enemyHealth = this.width;
+
     // getting the center of our enemy
     this.center = {
       x: this.rivalPosition.x + this.width / 2,
@@ -15,12 +20,6 @@ class Rival {
 
   drawRival() {
     ctx.fillStyle = "red";
-    // ctx.fillRect(
-    //   this.rivalPosition.x,
-    //   this.rivalPosition.y,
-    //   this.width,
-    //   this.height
-    // );
     ctx.beginPath();
     ctx.arc(this.center.x, this.center.y, this.radius, 0, Math.PI * 2);
     ctx.fill();
@@ -50,19 +49,23 @@ class Rival {
     let distanceY = rivalPathway.y - this.center.y;
     let distanceX = rivalPathway.x - this.center.x;
     let rivalMovingAngle = Math.atan2(distanceY, distanceX);
-    let speed = 2; // Adjust this value as needed
+    let speed = 2;
+    const tolerance = 0.01;
+    this.rivalVelocity.x = Math.cos(rivalMovingAngle);
+    this.rivalVelocity.y = Math.sin(rivalMovingAngle);
 
     // Calculate the new position with speed adjustment
-    this.rivalPosition.x += Math.cos(rivalMovingAngle);
-    this.rivalPosition.y += Math.sin(rivalMovingAngle);
+    this.rivalPosition.x += this.rivalVelocity.x * speed;
+    this.rivalPosition.y += this.rivalVelocity.y * speed;
     this.center = {
       x: this.rivalPosition.x + this.width / 2,
       y: this.rivalPosition.y + this.height / 2,
     };
-    // this.rivalPosition.x += 1;
     if (
-      Math.round(this.center.x) === Math.round(rivalPathway.x) &&
-      Math.round(this.center.y) === Math.round(rivalPathway.y) &&
+      Math.abs(Math.round(this.center.x) - Math.round(rivalPathway.x)) <
+        Math.abs(this.rivalVelocity.x * 3) &&
+      Math.abs(Math.round(this.center.y) - Math.round(rivalPathway.y)) <
+        Math.abs(this.rivalVelocity.y * 3) &&
       this.index < enemyPathway.length - 1
     ) {
       this.index++;

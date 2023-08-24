@@ -1,6 +1,8 @@
 const canvasWidth = 1504;
 const canvasHeight = 672;
-
+let moneyHtml = document.getElementById("money");
+let money = 0;
+money = parseInt(moneyHtml.textContent);
 let canvas;
 let ctx;
 let bg;
@@ -10,6 +12,7 @@ let rivalList = [];
 let possiblePlacementBuildings = [];
 let buildings = [];
 let setTile = undefined;
+let tower;
 
 const start = () => {
   canvas = document.getElementById("canvas");
@@ -19,6 +22,7 @@ const start = () => {
   ctx.fillStyle = "lightblue";
   ctx.clearRect(0, 0, canvasWidth, canvasHeight);
   createRival(10, 0);
+  tower = new OurTower();
   requestAnimationFrame(update);
 };
 
@@ -54,9 +58,10 @@ const mouse = {
 };
 
 window.addEventListener("click", () => {
-  if (setTile && !setTile.isOccupied) {
+  if (setTile && !setTile.isOccupied && money >= 50) {
     buildings.push(new Building({ position: setTile.buildingPosition }));
     setTile.isOccupied = true;
+    money -= 50;
   }
 });
 
@@ -79,9 +84,11 @@ window.addEventListener("mousemove", (e) => {
 });
 
 const update = () => {
-  requestAnimationFrame(update);
+  let frame = requestAnimationFrame(update);
   ctx.clearRect(0, 0, canvasWidth, canvasHeight);
-  ctx.drawImage(bg, 0, 0, canvasWidth, canvasHeight); // You can add background here
+  ctx.drawImage(bg, 0, 0, canvasWidth, canvasHeight);
+
+  moneyHtml.textContent = money;
 
   for (let i = rivalList.length - 1; i >= 0; i--) {
     let rival = rivalList[i];
@@ -117,6 +124,7 @@ const update = () => {
           let currentEnemyIndex = rivalList.indexOf(projectile.rival);
           if (currentEnemyIndex > -1) {
             rivalList.splice(currentEnemyIndex, 1);
+            money += 50;
           }
         }
       }
@@ -124,6 +132,20 @@ const update = () => {
   });
   if (rivalList.length <= 0) {
     createRival(20, 100);
+  }
+
+  // our tower
+  tower.updateTower();
+  if (tower.OurTowerHealth <= 0) {
+    ctx.fillStyle = "rgba(0, 0, 0, 0.5)";
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    ctx.fillStyle = "white";
+    ctx.font = "100px Arial";
+    ctx.textAlign = "center";
+    ctx.textBaseline = "middle";
+    ctx.fillText("Game Over", canvas.width / 2, canvas.height / 2);
+    cancelAnimationFrame(frame);
   }
 };
 

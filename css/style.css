@@ -3,6 +3,38 @@
   padding: 0;
   box-sizing: border-box;
 }
+body {
+  height: 100vh;
+}
 .mouse {
   cursor: pointer;
+}
+
+.container {
+  position: relative;
+  text-align: center;
+  display: flex;
+  /* justify-content: center; */
+  /* padding-top: 10px; */
+  /* padding-left: 20px; */
+}
+
+.coin {
+  position: absolute;
+  top: 5%;
+  right: 46%;
+  display: flex;
+  gap: 10px;
+  font-size: 70px;
+  align-items: center;
+  color: gold;
+}
+
+.icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#canvas {
 }
