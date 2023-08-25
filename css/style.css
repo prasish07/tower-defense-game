@@ -4,7 +4,8 @@
   box-sizing: border-box;
 }
 body {
-  height: 100vh;
+  /* margin-top: 20px;
+  margin-left: 20px; */
 }
 .mouse {
   cursor: pointer;
@@ -17,6 +18,8 @@ body {
   /* justify-content: center; */
   /* padding-top: 10px; */
   /* padding-left: 20px; */
+  width: 1507px;
+  height: 672px;
 }
 
 .coin {
@@ -63,6 +66,11 @@ body {
   cursor: pointer;
 }
 
+#tower__0 {
+  background-color: #08405d;
+  border-radius: 20px;
+}
+
 .tower .icon:hover {
   filter: grayscale(50%);
 }
@@ -103,4 +111,12 @@ img {
 }
 #tower__3:hover .tower__info {
   display: flex;
+}
+#tower__0:hover .tower__info {
+  display: flex;
+}
+
+#tower__0 .tower__info {
+  width: auto;
+  text-align: start;
 }

@@ -1,7 +1,7 @@
 const enemyPathway = [
   {
-    x: -163.525449821996,
-    y: 437.032618108342,
+    x: -103.525449821996,
+    y: 407.032618108342,
   },
   {
     x: 295.214086404311,
@@ -28,3 +28,21 @@ const enemyPathway = [
     y: -1.44712787453093,
   },
 ];
+
+function generateModifiedPathway(originalPathway, yOffsetRange, xOffsetRange) {
+  const modifiedPathway = originalPathway.map((point) => {
+    const yVariation = Math.random() * yOffsetRange - yOffsetRange / 2;
+    return {
+      x: point.x + xOffsetRange,
+      y: point.y + yVariation,
+    };
+  });
+  return modifiedPathway;
+}
+
+const EnemyPathway1 = generateModifiedPathway(enemyPathway, 50, 50);
+const EnemyPathway2 = generateModifiedPathway(enemyPathway, 0, 0);
+const EnemyPathway3 = generateModifiedPathway(enemyPathway, -50, 0);
+
+const enemyPathwayList = [EnemyPathway1, EnemyPathway2, EnemyPathway3];
+console.log(enemyPathwayList[0]);

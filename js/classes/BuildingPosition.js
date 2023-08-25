@@ -1,3 +1,5 @@
+const container = document.querySelector(".container");
+
 class BuildingPosition {
   constructor({ buildingPosition = { x: 0, y: 0 } }) {
     this.buildingPosition = buildingPosition;
@@ -28,11 +30,11 @@ class BuildingPosition {
 
     if (isMouseOver && !this.mouseOver) {
       this.placementColor = "rgba(0,255,0,0.45)";
-      canvas.classList.add("mouse");
+      container.classList.add("mouse");
       this.mouseOver = true;
     } else if (!isMouseOver && this.mouseOver) {
       this.placementColor = "rgba(0,255,0,0.15)";
-      canvas.classList.remove("mouse");
+      container.classList.remove("mouse");
       this.mouseOver = false;
     }
   }

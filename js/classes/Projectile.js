@@ -1,6 +1,12 @@
 class Projectile extends Sprite {
-  constructor({ position = { x: 0, y: 0 }, rival }) {
-    // this.position = position;
+  constructor({
+    position = { x: 0, y: 0 },
+    rival,
+    speed,
+    damage,
+    shape,
+    color,
+  }) {
     super({
       position,
       imgSrc:
@@ -9,7 +15,8 @@ class Projectile extends Sprite {
         imgCount: 17,
       },
     });
-    this.speed = 5;
+    this.speed = speed;
+    this.damage = damage;
     this.projectileVelocity = {
       x: 0,
       y: 0,
@@ -26,7 +33,11 @@ class Projectile extends Sprite {
     // ctx.arc(this.position.x, this.position.y, this.radius, 0, Math.PI * 2);
     // ctx.fillStyle = "red";
     // ctx.fill();
-    super.drawSprite();
+    ctx.beginPath();
+    ctx.ellipse(this.position.x, this.position.y - 15, 5, 7, 0, 0, Math.PI * 2);
+    ctx.fillStyle = "blue";
+    ctx.fill();
+    // super.drawSprite();
   }
 
   updateProjectile() {

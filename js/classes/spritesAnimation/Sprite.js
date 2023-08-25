@@ -2,7 +2,7 @@ class Sprite {
   constructor({
     position = { x: 0, y: 0 },
     imgSrc,
-    imgInfo = { imgCount: 1 },
+    imgInfo = { imgCount: 1, animationHoldTime: 15 },
     fixPosition = {
       x: 0,
       y: 0,
@@ -16,7 +16,7 @@ class Sprite {
       imgCount: imgInfo.imgCount,
       current: 0,
       imgElapsed: 0,
-      animationHoldTime: 15,
+      animationHoldTime: imgInfo.animationHoldTime,
     };
   }
 

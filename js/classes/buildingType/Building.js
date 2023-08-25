@@ -1,12 +1,9 @@
 class Building extends Sprite {
-  constructor({ position = { x: 0, y: 0 } }) {
+  constructor({ position = { x: 0, y: 0 }, imgSrc, imgInfo, projectileInfo }) {
     super({
       position,
-      imgSrc:
-        "../../../assets/pngs/mage_guardian_free_creativekind/mage_guardian-blue.png",
-      imgInfo: {
-        imgCount: 14,
-      },
+      imgSrc: imgSrc,
+      imgInfo: imgInfo,
       fixPosition: {
         x: 0,
         y: -30,
@@ -17,6 +14,8 @@ class Building extends Sprite {
     this.width = this.size * 2;
     this.buildingRadius = 300;
     this.target;
+    this.speed = projectileInfo.speed;
+    this.damage = projectileInfo.damage;
     this.buildingCenter = {
       x: this.position.x + this.width / 2,
       y: this.position.y + this.size / 2,
@@ -25,8 +24,6 @@ class Building extends Sprite {
     this.time = 0;
   }
   drawCurrentBuilding() {
-    // ctx.fillStyle = "red";
-    // ctx.fillRect(this.position.x, this.position.y, this.size * 2, this.size);
     super.drawSprite();
     ctx.beginPath();
     ctx.arc(
@@ -51,6 +48,8 @@ class Building extends Sprite {
             y: this.buildingCenter.y,
           },
           rival: this.target,
+          speed: this.speed,
+          damage: this.damage,
         })
       );
     }
