@@ -1,11 +1,18 @@
 class Building extends Sprite {
-  constructor({ position = { x: 0, y: 0 }, imgSrc, imgInfo, projectileInfo }) {
+  constructor({
+    position = { x: 0, y: 0 },
+    imgSrc,
+    imgInfo,
+    projectileInfo,
+    cost,
+    shape,
+  }) {
     super({
       position,
       imgSrc: imgSrc,
       imgInfo: imgInfo,
       fixPosition: {
-        x: 0,
+        x: -15,
         y: -30,
       },
     });
@@ -14,14 +21,14 @@ class Building extends Sprite {
     this.width = this.size * 2;
     this.buildingRadius = 300;
     this.target;
-    this.speed = projectileInfo.speed;
-    this.damage = projectileInfo.damage;
+    this.projectileInfo = projectileInfo;
     this.buildingCenter = {
       x: this.position.x + this.width / 2,
       y: this.position.y + this.size / 2,
     };
     this.buildingProjectile = [];
     this.time = 0;
+    this.cost = cost;
   }
   drawCurrentBuilding() {
     super.drawSprite();
@@ -33,7 +40,7 @@ class Building extends Sprite {
       0,
       Math.PI * 2
     );
-    ctx.fillStyle = "rgba(0,0,255,0.05)";
+    ctx.fillStyle = "rgba(0,0,255,0.03)";
     ctx.fill();
   }
 
@@ -48,8 +55,7 @@ class Building extends Sprite {
             y: this.buildingCenter.y,
           },
           rival: this.target,
-          speed: this.speed,
-          damage: this.damage,
+          projectileInfo: this.projectileInfo,
         })
       );
     }

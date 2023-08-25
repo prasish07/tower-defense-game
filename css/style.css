@@ -6,6 +6,7 @@
 body {
   /* margin-top: 20px;
   margin-left: 20px; */
+  background-color: black;
 }
 .mouse {
   cursor: pointer;
@@ -24,13 +25,16 @@ body {
 
 .coin {
   position: absolute;
-  top: 5%;
-  right: 46%;
+  top: 1.5%;
+  left: 2%;
   display: flex;
   gap: 10px;
-  font-size: 70px;
+  font-size: 40px;
   align-items: center;
   color: gold;
+  border-right: 2px solid white;
+  padding-right: 30px;
+  height: 80px;
 }
 
 .icon {
@@ -45,18 +49,21 @@ body {
 
 .tower {
   position: absolute;
-  right: 20%;
-  top: 3%;
+  left: 15.5%;
+  top: 1.5%;
   display: flex;
-  flex-direction: column;
+  align-items: center;
+
   border-radius: 20px;
   /* overflow: hidden; */
-  gap: 10px;
+  gap: 30px;
+  color: white;
+  font-size: 20px;
 }
 
 .tower__list {
   display: flex;
-  gap: 10px;
+  gap: 30px;
 }
 
 .tower .icon {
@@ -91,7 +98,7 @@ img {
   flex-direction: column;
   padding: 20px;
   gap: 10px;
-  background-color: rgba(255, 255, 255, 0.4);
+  background-color: rgba(0, 0, 0, 0.4);
   border-radius: 20px;
   z-index: 10;
   width: 200px;
@@ -99,7 +106,7 @@ img {
   align-items: start;
   margin-top: 10px;
   font-size: 18px;
-  box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.4);
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.4);
   display: none;
 }
 
@@ -117,6 +124,37 @@ img {
 }
 
 #tower__0 .tower__info {
-  width: auto;
+  width: 300px;
   text-align: start;
+}
+
+.title {
+  font-size: 30px;
+  color: white;
+  text-align: center;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  position: absolute;
+  top: 0.2%;
+  right: 2%;
+  border-left: 2px solid white;
+  padding-left: 20px;
+  height: 80px;
+  display: flex;
+  align-items: center;
+}
+
+.wave {
+  font-size: 30px;
+  position: absolute;
+  top: 1.5%;
+  left: 69%;
+  color: white;
+  height: 80px;
+  border-left: 2px solid white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-left: 40px;
+  justify-content: center;
 }

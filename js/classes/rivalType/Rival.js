@@ -2,20 +2,19 @@ class Rival extends Sprite {
   constructor({
     rivalPosition = { x: 0, y: 0 },
     index,
-    // imgSrc,
-    // imgInfo,
-    // speed,
-    // enemyHealth,
+    imgSrc,
+    imgInfo,
+    speed,
+    enemyHealth,
+    offset,
+    money,
+    damage,
   }) {
     super({
       position: rivalPosition,
-      imgSrc: "../../../assets/pngs/enemy/goblin resize.png",
-      imgInfo: {
-        imgCount: 9,
-        animationHoldTime: 5,
-      },
+      imgSrc: imgSrc,
+      imgInfo: imgInfo,
     });
-    console.log(rivalPosition);
     this.index = 0;
     this.rivalPosition = rivalPosition;
     this.width = 50;
@@ -27,9 +26,12 @@ class Rival extends Sprite {
       y: 0,
     };
     // this.enemyHealth = enemyHealth ? enemyHealth : 200;
-    this.enemyHealth = 100;
+    this.enemyHealth = enemyHealth;
     this.fullHealth = this.enemyHealth;
-    this.speed = 2;
+    this.speed = speed;
+    this.offset = offset;
+    this.money = money;
+    this.damage = damage;
 
     // getting the center of our enemy
     this.center = {
@@ -40,24 +42,20 @@ class Rival extends Sprite {
 
   drawRival() {
     super.drawSprite();
-    // ctx.fillStyle = "red";
-    // ctx.beginPath();
-    // ctx.arc(this.center.x, this.center.y, this.radius, 0, Math.PI * 2);
-    // ctx.fill();
     this.drawHealthBar();
   }
 
   drawHealthBar() {
     ctx.fillStyle = "red";
     ctx.fillRect(
-      this.rivalPosition.x,
+      this.rivalPosition.x + this.offset.x,
       this.rivalPosition.y - 15,
       this.enemyHealth,
       5
     );
     ctx.fillStyle = "green";
     ctx.fillRect(
-      this.rivalPosition.x,
+      this.rivalPosition.x + this.offset.x,
       this.rivalPosition.y - 15,
       this.fullHealth,
       5
@@ -67,7 +65,6 @@ class Rival extends Sprite {
   updatePosition() {
     this.drawRival();
     let currentPathway = enemyPathwayList[this.randomValue];
-    console.log(currentPathway);
     const rivalPathway = currentPathway[this.index];
     let distanceY = rivalPathway.y - this.center.y;
     let distanceX = rivalPathway.x - this.center.x;

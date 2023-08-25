@@ -22,7 +22,8 @@ let tower3;
 let cancel;
 
 // level
-let level = 0;
+let waveCount = 0;
+let wave = document.querySelector(".wave__count");
 
 let selectedTower = 0;
 
@@ -30,6 +31,62 @@ cancel = document.getElementById("tower__0");
 tower1 = document.getElementById("tower__1");
 tower2 = document.getElementById("tower__2");
 tower3 = document.getElementById("tower__3");
+
+// function which return random number between 0 to 2
+function getRandomNumber() {
+  return Math.floor(Math.random() * 3);
+}
+
+// function to create goblin
+function createGoblin(n, distance) {
+  for (let i = 1; i < n; i++) {
+    let randomValue = getRandomNumber();
+
+    let xEnemyDistance = i * 100 - distance * i;
+
+    const rivalStartingPoint = {
+      x: enemyPathwayList[randomValue][0].x - xEnemyDistance,
+      y: enemyPathwayList[randomValue][0].y,
+    };
+    rivalList.push(
+      new Goblin({ rivalPosition: rivalStartingPoint, index: randomValue })
+    );
+  }
+}
+
+// function to create gient
+function createGiant(n, distance) {
+  for (let i = 1; i < n; i++) {
+    let randomValue = getRandomNumber();
+
+    let xEnemyDistance = i * 100 - distance * i;
+
+    const rivalStartingPoint = {
+      x: enemyPathwayList[randomValue][0].x - xEnemyDistance,
+      y: enemyPathwayList[randomValue][0].y,
+    };
+    rivalList.push(
+      new Giant({ rivalPosition: rivalStartingPoint, index: randomValue })
+    );
+  }
+}
+
+// function to create gient
+function createDragon(n, distance) {
+  for (let i = 1; i < n; i++) {
+    let randomValue = getRandomNumber();
+
+    let xEnemyDistance = i * 100 - distance * i;
+
+    const rivalStartingPoint = {
+      x: enemyPathwayList[randomValue][0].x - xEnemyDistance,
+      y: enemyPathwayList[randomValue][0].y,
+    };
+    rivalList.push(
+      new Dragon({ rivalPosition: rivalStartingPoint, index: randomValue })
+    );
+  }
+}
 
 tower1.addEventListener("click", () => {
   selectedTower = 0;
@@ -51,33 +108,10 @@ const start = () => {
   ctx = canvas.getContext("2d");
   ctx.fillStyle = "lightblue";
   ctx.clearRect(0, 0, canvasWidth, canvasHeight);
-  createRival(10, 0);
+  createGoblin(10, 0);
   tower = new OurTower();
   requestAnimationFrame(update);
 };
-
-// function to create rival
-function createRival(n, distance) {
-  for (let i = 1; i < n; i++) {
-    // random value from 0 to 3
-    let randomValue = Math.floor(Math.random() * 3);
-
-    let xEnemyDistance = i * 100 - distance * i;
-    console.log(randomValue);
-    console.log(enemyPathwayList[randomValue][0]);
-
-    // Introduce a slight y-coordinate variation
-    let yEnemyVariation = Math.random() * 100 - 10; // Adjust the range as needed
-
-    const rivalStartingPoint = {
-      x: enemyPathwayList[randomValue][0].x - xEnemyDistance,
-      y: enemyPathwayList[randomValue][0].y, // Apply the variation
-    };
-    rivalList.push(
-      new Rival({ rivalPosition: rivalStartingPoint, index: randomValue })
-    );
-  }
-}
 
 possibleBuilding2D.forEach((row, y) => {
   row.forEach((number, x) => {
@@ -103,17 +137,20 @@ const mouse = {
 window.addEventListener("click", () => {
   clicked = true;
   if (setTile && !setTile.isOccupied) {
-    if (selectedTower === 0 && money >= 10) {
+    if (selectedTower === 0 && money >= 20) {
       buildings.push(new Building_1({ position: setTile.buildingPosition }));
-      money -= 10;
-    } else if (selectedTower === 1 && money >= 50) {
+      money -= 20;
+    } else if (selectedTower === 1 && money >= 100) {
       buildings.push(new Building_2({ position: setTile.buildingPosition }));
-      money -= 50;
-    } else if (selectedTower === 2 && money >= 100) {
-      buildings.push(new Building_3({ position: setTile.buildingPosition }));
       money -= 100;
+    } else if (selectedTower === 2 && money >= 300) {
+      buildings.push(new Building_3({ position: setTile.buildingPosition }));
+      money -= 300;
     }
     setTile.isOccupied = true;
+    buildings.sort((a, b) => {
+      return a.position.y - b.position.y;
+    });
   }
   if (setTile && selectedTower === 3 && setTile.isOccupied) {
     const positionToRemove = setTile.buildingPosition;
@@ -125,8 +162,9 @@ window.addEventListener("click", () => {
         building.position.y === positionToRemove.y
       );
     });
-
+    const currentBuilding = buildings[indexToRemove];
     if (indexToRemove !== -1) {
+      money += currentBuilding.cost / 2;
       buildings.splice(indexToRemove, 1);
       setTile.isOccupied = false;
     }
@@ -158,24 +196,26 @@ const update = () => {
   ctx.drawImage(bg, 0, 0, canvasWidth, canvasHeight);
 
   moneyHtml.textContent = money;
+  wave.textContent = waveCount;
 
   for (let i = rivalList.length - 1; i >= 0; i--) {
     let rival = rivalList[i];
     rival.updatePosition();
   }
+  // add a cannot place a summons in this location on top of mouse
   if (clicked && !setTile) {
-    // add a cannot place a summons in this location on top of mouse
-
     ctx.fillStyle = "black";
     ctx.font = "20px Arial"; // Set the font size and family
     ctx.fillText("Can't place summon here", mouse.x, mouse.y - 20);
   }
 
+  // update the building position
   for (let i = possiblePlacementBuildings.length - 1; i >= 0; i--) {
     let build = possiblePlacementBuildings[i];
     build.updateBuildingPosition(mouse);
   }
 
+  // update the building
   buildings.forEach((building) => {
     building.updateCurrentBuilding();
     building.target = null;
@@ -195,7 +235,7 @@ const update = () => {
       const distance = Math.hypot(distanceX, distanceY);
       if (distance < projectile.radius + projectile.rival.radius) {
         building.buildingProjectile.splice(i, 1);
-        projectile.rival.fullHealth -= projectile.damage;
+        projectile.rival.fullHealth -= projectile.projectileInfo.damage;
         if (projectile.rival.fullHealth <= 0) {
           let currentEnemyIndex = rivalList.indexOf(projectile.rival);
           if (currentEnemyIndex > -1) {
@@ -206,12 +246,21 @@ const update = () => {
       }
     }
   });
+
+  // create waves
   if (rivalList.length <= 0) {
-    createRival(20, 30);
+    waveCount++;
+    createGoblin(parseInt(20 * (waveCount + 0.5)), 30);
+    createGiant(10 * waveCount, 0);
+    if (waveCount > 2) {
+      createDragon(4 * waveCount, 0);
+    }
   }
 
   // our tower
   tower.updateTower();
+
+  // Ending the game
   if (tower.OurTowerHealth <= 0) {
     ctx.fillStyle = "rgba(0, 0, 0, 0.5)";
     ctx.fillRect(0, 0, canvas.width, canvas.height);
@@ -227,9 +276,8 @@ const update = () => {
 
 window.onload = () => {
   bg = new Image();
-  bg.src = "assets/map.png"; // Make sure to provide the correct image path
+  bg.src = "../assets/map2.png";
   bg.onload = () => {
     start();
-    // setInterval(createRival, 5000);
   };
 };

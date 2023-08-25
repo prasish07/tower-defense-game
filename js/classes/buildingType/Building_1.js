@@ -10,7 +10,10 @@ class Building_1 extends Building {
       projectileInfo: {
         speed: 5,
         damage: 10,
+        shape: "ball",
+        color: "blue",
       },
+      cost: 20,
     });
   }
 }

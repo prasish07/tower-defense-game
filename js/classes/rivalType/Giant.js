@@ -1,5 +1,5 @@
-class Gient extends Rival {
-  constructor({ rivalPosition = { x: 0, y: 0 } }) {
+class Giant extends Rival {
+  constructor({ rivalPosition = { x: 0, y: 0 }, index }) {
     super({
       rivalPosition,
       imgSrc: "../../../assets/pngs/enemy/gient.png",
@@ -8,11 +8,13 @@ class Gient extends Rival {
         animationHoldTime: 5,
       },
       speed: 2,
-      enemyHealth: 200,
+      enemyHealth: 100,
       offset: {
         x: 0,
         y: 0,
       },
+      index,
+      damage: 30,
     });
   }
 }

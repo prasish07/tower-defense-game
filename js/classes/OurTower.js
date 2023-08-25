@@ -1,6 +1,6 @@
 class OurTower {
   constructor() {
-    this.position = { x: 1227, y: 20 };
+    this.position = { x: 1300, y: 200 };
     this.size = 200;
     this.OurTowerHealth = 200;
     this.width = this.size; // Calculate width based on size
@@ -37,13 +37,18 @@ class OurTower {
 
   drawTowerHealth() {
     ctx.fillStyle = "red";
-    ctx.fillRect(this.buildingCenter.x - 80, this.position.y, this.size, 5);
+    ctx.fillRect(
+      this.buildingCenter.x - 100,
+      this.position.y - 10,
+      this.size,
+      8
+    );
     ctx.fillStyle = "green";
     ctx.fillRect(
-      this.buildingCenter.x - 80,
-      this.position.y,
+      this.buildingCenter.x - 100,
+      this.position.y - 10,
       this.OurTowerHealth,
-      5
+      8
     );
   }
 
@@ -62,10 +67,11 @@ class OurTower {
 
     for (const rival of rivalList) {
       if (this.collidesWithEnemy(rival)) {
-        const currentRival = rivalList.indexOf(rival);
-        this.OurTowerHealth -= 10;
-        if (currentRival > -1) {
-          rivalList.splice(currentRival, 1);
+        const currentRivalIndex = rivalList.indexOf(rival);
+        const currentRival = rivalList[currentRivalIndex];
+        this.OurTowerHealth -= currentRival.damage;
+        if (currentRivalIndex > -1) {
+          rivalList.splice(currentRivalIndex, 1);
         }
       }
     }

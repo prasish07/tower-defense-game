@@ -1,12 +1,5 @@
 class Projectile extends Sprite {
-  constructor({
-    position = { x: 0, y: 0 },
-    rival,
-    speed,
-    damage,
-    shape,
-    color,
-  }) {
+  constructor({ position = { x: 0, y: 0 }, rival, projectileInfo }) {
     super({
       position,
       imgSrc:
@@ -15,8 +8,7 @@ class Projectile extends Sprite {
         imgCount: 17,
       },
     });
-    this.speed = speed;
-    this.damage = damage;
+    this.projectileInfo = projectileInfo;
     this.projectileVelocity = {
       x: 0,
       y: 0,
@@ -25,19 +17,30 @@ class Projectile extends Sprite {
     this.radius = 5;
   }
   drawProjectile() {
-    // let projectileImage = new Image();
-    // projectileImage.src =
-    //   "../../assets/Foozle_2DS0018_Spire_TowerPack_2/Towers Weapons/Tower 04/PNGs/Tower 04 - Level 01 - Projectile.png";
-    // ctx.drawImage(projectileImage, this.position.x, this.position.y);
-    // ctx.beginPath();
-    // ctx.arc(this.position.x, this.position.y, this.radius, 0, Math.PI * 2);
-    // ctx.fillStyle = "red";
-    // ctx.fill();
     ctx.beginPath();
-    ctx.ellipse(this.position.x, this.position.y - 15, 5, 7, 0, 0, Math.PI * 2);
-    ctx.fillStyle = "blue";
+    if (this.projectileInfo.shape === "ball") {
+      ctx.arc(
+        this.position.x - 15,
+        this.position.y - 15,
+        this.radius,
+        0,
+        Math.PI * 2
+      );
+      ctx.fillStyle = this.projectileInfo.color;
+    } else if (this.projectileInfo.shape === "triangle") {
+      ctx.arc(
+        this.position.x - 15,
+        this.position.y - 15,
+        this.radius,
+        0,
+        Math.PI * 2
+      );
+      ctx.fillStyle = this.projectileInfo.color;
+    } else if (this.projectileInfo.shape === "rectangle") {
+      ctx.rect(this.position.x - 15, this.position.y - 15, 10, 10);
+      ctx.fillStyle = this.projectileInfo.color;
+    }
     ctx.fill();
-    // super.drawSprite();
   }
 
   updateProjectile() {
@@ -46,8 +49,10 @@ class Projectile extends Sprite {
       this.rival.center.y - this.position.y,
       this.rival.center.x - this.position.x
     );
-    this.projectileVelocity.x = Math.cos(projectileAngle) * this.speed;
-    this.projectileVelocity.y = Math.sin(projectileAngle) * this.speed;
+    this.projectileVelocity.x =
+      Math.cos(projectileAngle) * this.projectileInfo.speed;
+    this.projectileVelocity.y =
+      Math.sin(projectileAngle) * this.projectileInfo.speed;
     this.position.x += this.projectileVelocity.x;
     this.position.y += this.projectileVelocity.y;
   }

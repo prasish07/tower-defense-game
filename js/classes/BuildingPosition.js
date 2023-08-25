@@ -4,7 +4,7 @@ class BuildingPosition {
   constructor({ buildingPosition = { x: 0, y: 0 } }) {
     this.buildingPosition = buildingPosition;
     this.size = 32;
-    this.placementColor = "rgba(0,255,0,0.15)";
+    this.placementColor = "rgba(0,255,0,0.1)";
     this.mouseOver = false; // Track mouse state
     this.isOccupied = false; // Track if there is already a build exist in that tile
   }
@@ -33,7 +33,7 @@ class BuildingPosition {
       container.classList.add("mouse");
       this.mouseOver = true;
     } else if (!isMouseOver && this.mouseOver) {
-      this.placementColor = "rgba(0,255,0,0.15)";
+      this.placementColor = "rgba(0,255,0,0.05)";
       container.classList.remove("mouse");
       this.mouseOver = false;
     }

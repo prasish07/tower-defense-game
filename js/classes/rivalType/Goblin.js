@@ -1,5 +1,5 @@
 class Goblin extends Rival {
-  constructor({ rivalPosition = { x: 0, y: 0 } }) {
+  constructor({ rivalPosition = { x: 0, y: 0 }, index }) {
     super({
       rivalPosition,
       imgSrc: "../../../assets/pngs/enemy/goblin resize.png",
@@ -8,11 +8,13 @@ class Goblin extends Rival {
         animationHoldTime: 5,
       },
       speed: 2,
-      enemyHealth: 100,
+      enemyHealth: 50,
       offset: {
         x: 0,
         y: 0,
       },
+      index,
+      damage: 10,
     });
   }
 }
