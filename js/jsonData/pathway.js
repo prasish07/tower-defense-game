@@ -28,54 +28,72 @@
 //     y: -1.44712787453093,
 //   },
 // ];
-const enemyPathway = [
+const enemyPathway1 = [
   {
-    x: -44,
-    y: 469.333333333333,
+    x: -25.3333333333333,
+    y: 453.333333333333,
+  },
+  {
+    x: 173.333333333333,
+    y: 441.333333333333,
   },
   {
     x: 229.333333333333,
-    y: 469.333333333333,
+    y: 370.666666666667,
   },
   {
-    x: 228,
-    y: 268,
+    x: 386.666666666667,
+    y: 354.666666666667,
   },
   {
-    x: 688,
-    y: 274.666666666667,
+    x: 472,
+    y: 454.666666666667,
   },
   {
-    x: 688,
-    y: 528,
+    x: 509.333333333333,
+    y: 537.333333333333,
   },
   {
-    x: 1070.66666666667,
-    y: 528,
+    x: 598.666666666667,
+    y: 565.333333333333,
   },
   {
-    x: 1066.66666666667,
-    y: 298.666666666667,
+    x: 734.666666666667,
+    y: 498.666666666667,
   },
   {
-    x: 1581.33333333333,
-    y: 301.333333333333,
+    x: 886.666666666667,
+    y: 496,
+  },
+  {
+    x: 929.333333333333,
+    y: 385.333333333333,
+  },
+  {
+    x: 977.333333333333,
+    y: 328,
+  },
+  {
+    x: 1184,
+    y: 324,
+  },
+  {
+    x: 1282.66666666667,
+    y: 444,
+  },
+  {
+    x: 1306.66666666667,
+    y: 489.333333333333,
+  },
+  {
+    x: 1440,
+    y: 397.333333333333,
+  },
+  {
+    x: 1520,
+    y: 414.666666666667,
   },
 ];
 
-function generateModifiedPathway(originalPathway, yOffsetRange, xOffsetRange) {
-  const modifiedPathway = originalPathway.map((point) => {
-    const yVariation = Math.random() * yOffsetRange - yOffsetRange / 2;
-    return {
-      x: point.x + xOffsetRange,
-      y: point.y + yVariation,
-    };
-  });
-  return modifiedPathway;
-}
-
-const EnemyPathway1 = generateModifiedPathway(enemyPathway, -80, -20);
-const EnemyPathway2 = generateModifiedPathway(enemyPathway, 0, 0);
-const EnemyPathway3 = generateModifiedPathway(enemyPathway, -50, -50);
-
-const enemyPathwayList = [EnemyPathway1, EnemyPathway2, EnemyPathway3];
+const enemyPathway2 = [];
+const enemyPathway3 = [];

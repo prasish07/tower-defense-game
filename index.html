@@ -9,68 +9,105 @@
 </head>
 
 <body>
+    <div class="game-over">
+        <div class="game-over__content">
+            <h1 class="game-over__title">Game Over</h1>
+            <div class="game-over__buttons">
+                <button class="game-over__btn" id="restart">
+                    <i><img src="../../assets/starting/startingButton.png" alt="starting btn"></i>
+                    <span>Restart</span>
+                </button>
+                <button class="game-over__btn game-over_create-btn"><i><img
+                            src="../../assets/starting/startingButton.png" alt="starting btn"></i>
+                    <span>Create your own level</span></button>
+            </div>
+        </div>
+    </div>
     <div class="container">
         <canvas id="canvas"></canvas>
-        <div class="coin">
-            <div class="icon"><svg xmlns="http://www.w3.org/2000/svg" height="0.875em"
-                    viewBox="0 0 512 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. -->
-                    <style>
-                        svg {
-                            fill: #fff700
-                        }
-                    </style>
-                    <path
-                        d="M504 256c0 136.967-111.033 248-248 248S8 392.967 8 256 119.033 8 256 8s248 111.033 248 248zm-141.651-35.33c4.937-32.999-20.191-50.739-54.55-62.573l11.146-44.702-27.213-6.781-10.851 43.524c-7.154-1.783-14.502-3.464-21.803-5.13l10.929-43.81-27.198-6.781-11.153 44.686c-5.922-1.349-11.735-2.682-17.377-4.084l.031-.14-37.53-9.37-7.239 29.062s20.191 4.627 19.765 4.913c11.022 2.751 13.014 10.044 12.68 15.825l-12.696 50.925c.76.194 1.744.473 2.829.907-.907-.225-1.876-.473-2.876-.713l-17.796 71.338c-1.349 3.348-4.767 8.37-12.471 6.464.271.395-19.78-4.937-19.78-4.937l-13.51 31.147 35.414 8.827c6.588 1.651 13.045 3.379 19.4 5.006l-11.262 45.213 27.182 6.781 11.153-44.733a1038.209 1038.209 0 0 0 21.687 5.627l-11.115 44.523 27.213 6.781 11.262-45.128c46.404 8.781 81.299 5.239 95.986-36.727 11.836-33.79-.589-53.281-25.004-65.991 17.78-4.098 31.174-15.792 34.747-39.949zm-62.177 87.179c-8.41 33.79-65.308 15.523-83.755 10.943l14.944-59.899c18.446 4.603 77.6 13.717 68.811 48.956zm8.417-87.667c-7.673 30.736-55.031 15.12-70.393 11.292l13.548-54.327c15.363 3.828 64.836 10.973 56.845 43.035z" />
-                </svg></div>
-            <div class="coin__value" id="money">100</div>
-        </div>
-        <div class="tower">
-            <h2>Choose your summons :</h2>
-            <div class="tower__list">
+        <div class="info">
+            <div class="coin">
+                <div class="icon"><svg xmlns="http://www.w3.org/2000/svg" height="0.875em"
+                        viewBox="0 0 512 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. -->
+                        <style>
+                            svg {
+                                fill: #fff700
+                            }
+                        </style>
+                        <path
+                            d="M504 256c0 136.967-111.033 248-248 248S8 392.967 8 256 119.033 8 256 8s248 111.033 248 248zm-141.651-35.33c4.937-32.999-20.191-50.739-54.55-62.573l11.146-44.702-27.213-6.781-10.851 43.524c-7.154-1.783-14.502-3.464-21.803-5.13l10.929-43.81-27.198-6.781-11.153 44.686c-5.922-1.349-11.735-2.682-17.377-4.084l.031-.14-37.53-9.37-7.239 29.062s20.191 4.627 19.765 4.913c11.022 2.751 13.014 10.044 12.68 15.825l-12.696 50.925c.76.194 1.744.473 2.829.907-.907-.225-1.876-.473-2.876-.713l-17.796 71.338c-1.349 3.348-4.767 8.37-12.471 6.464.271.395-19.78-4.937-19.78-4.937l-13.51 31.147 35.414 8.827c6.588 1.651 13.045 3.379 19.4 5.006l-11.262 45.213 27.182 6.781 11.153-44.733a1038.209 1038.209 0 0 0 21.687 5.627l-11.115 44.523 27.213 6.781 11.262-45.128c46.404 8.781 81.299 5.239 95.986-36.727 11.836-33.79-.589-53.281-25.004-65.991 17.78-4.098 31.174-15.792 34.747-39.949zm-62.177 87.179c-8.41 33.79-65.308 15.523-83.755 10.943l14.944-59.899c18.446 4.603 77.6 13.717 68.811 48.956zm8.417-87.667c-7.673 30.736-55.031 15.12-70.393 11.292l13.548-54.327c15.363 3.828 64.836 10.973 56.845 43.035z" />
+                    </svg></div>
+                <div class="coin__value" id="money">100</div>
+            </div>
+            <div class="tower">
+                <h2>Choose your summons :</h2>
+                <div class="tower__list">
 
-                <div id="tower__1"><i class="icon"><img src="./assets/towers/mage_guardian_blue.png" alt="tower 1"></i>
-                    <div class="tower__info">
-                        <h4>Mage</h4>
-                        <p>Cost: 50</p>
-                        <p>Damage: 10</p>
-                        <p>Range: 100</p>
-                        <p>Attack speed: 1</p>
-                    </div>
+                    <div id="tower__1"><i class="icon"><img src="./assets/towers/mage_guardian_blue.png"
+                                alt="tower 1"></i>
+                        <div class="tower__info">
+                            <h4>Mage 1</h4>
+                            <p>Cost: 20</p>
+                            <p>Damage: 10</p>
+                            <p>Range: 300</p>
+                            <p>Attack speed: 5</p>
+                        </div>
 
-                </div>
-                <div id="tower__2"><i class="icon"><img src="./assets/towers/mage_guardian_magenta.png"
-                            alt="tower 2"></i>
-                    <div class="tower__info">
-                        <h4>Mage</h4>
-                        <p>Cost: 100</p>
-                        <p>Damage: 30</p>
-                        <p>Range: 100</p>
-                        <p>Attack speed: 3</p>
                     </div>
-                </div>
-                <div id="tower__3"><i class="icon"><img src="./assets/towers/mage_guardian_red.png" alt="tower 3"></i>
-                    <div class="tower__info">
-                        <h4>Mage</h4>
-                        <p>Cost: 200</p>
-                        <p>Damage:50</p>
-                        <p>Range: 100</p>
-                        <p>Attack speed: 5</p>
+                    <div id="tower__2"><i class="icon"><img src="./assets/towers/mage_guardian_magenta.png"
+                                alt="tower 2"></i>
+                        <div class="tower__info">
+                            <h4>Mage</h4>
+                            <p>Cost: 100</p>
+                            <p>Damage: 30</p>
+                            <p>Range: 300</p>
+                            <p>Attack speed: 7</p>
+                        </div>
                     </div>
-                </div>
-                <div id="tower__0">
-                    <i class="icon">
-                        <img src="./assets/towers/cancel2.png" alt="cancel">
-                    </i>
-                    <div class="tower__info">
-                        <h4>Cancel your summons</h4>
-                        <p>Note: You will only get half your original money</p>
+                    <div id="tower__3"><i class="icon"><img src="./assets/towers/mage_guardian_red.png"
+                                alt="tower 3"></i>
+                        <div class="tower__info">
+                            <h4>Mage</h4>
+                            <p>Cost: 500</p>
+                            <p>Damage:50</p>
+                            <p>Range: 300</p>
+                            <p>Attack speed: 10</p>
+                        </div>
+                    </div>
+                    <div id="tower__0">
+                        <i class="icon">
+                            <img src="./assets/towers/cancel2.png" alt="cancel">
+                        </i>
+                        <div class="tower__info">
+                            <h4>Cancel your summons</h4>
+                            <p>Note: You will only get half your original money</p>
+                        </div>
                     </div>
                 </div>
             </div>
+            <h1 class="title">Defense your tower</h1>
+            <h4 class="wave">Wave <span class="wave__count">0</span></h4>
         </div>
-        <h1 class="title">Defense your tower</h1>
-        <h4 class="wave">Wave <span class="wave__count">0</span></h4>
     </div>
+
+    <div class="game-starting ">
+        <div class="game-starting__buttons">
+            <button class="game-starting__btn">
+                <i><img src="../../assets/starting/startingButton.png" alt="starting btn"></i>
+                <span>Start the game</span>
+            </button>
+            <button class="game-starting__create-btn"><i><img src="../../assets/starting/startingButton.png"
+                        alt="starting btn"></i>
+                <span>Create your own level</span></button>
+        </div>
+        <div class="game-starting__loading">
+            <div class="loading-animation" />
+        </div>
+    </div>
+
+    <script src="./js/starting/initial.js"></script>
+    <script src="./js/classes/money/MoneyDrop.js"></script>
+    <script src="./js/sound/sound.js"></script>
     <script src="./js/jsonData/pathway.js"></script>
     <script src="./js/jsonData/positionBuildingTile.js"></script>
     <script src="./js/classes/BuildingPosition.js"></script>

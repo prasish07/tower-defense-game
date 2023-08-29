@@ -1,10 +1,8 @@
-const container = document.querySelector(".container");
-
 class BuildingPosition {
   constructor({ buildingPosition = { x: 0, y: 0 } }) {
     this.buildingPosition = buildingPosition;
     this.size = 32;
-    this.placementColor = "rgba(0,255,0,0.1)";
+    this.placementColor = "rgba(0,255,0,0.07)";
     this.mouseOver = false; // Track mouse state
     this.isOccupied = false; // Track if there is already a build exist in that tile
   }
@@ -14,7 +12,7 @@ class BuildingPosition {
     ctx.fillRect(
       this.buildingPosition.x,
       this.buildingPosition.y,
-      this.size,
+      this.size * 2,
       this.size
     );
   }
@@ -24,7 +22,7 @@ class BuildingPosition {
     // collision algorithm
     const isMouseOver =
       x > this.buildingPosition.x &&
-      x < this.buildingPosition.x + this.size &&
+      x < this.buildingPosition.x + this.size * 2 &&
       y > this.buildingPosition.y &&
       y < this.buildingPosition.y + this.size;
 
@@ -33,7 +31,7 @@ class BuildingPosition {
       container.classList.add("mouse");
       this.mouseOver = true;
     } else if (!isMouseOver && this.mouseOver) {
-      this.placementColor = "rgba(0,255,0,0.05)";
+      this.placementColor = "rgba(0,255,0,0.07)";
       container.classList.remove("mouse");
       this.mouseOver = false;
     }

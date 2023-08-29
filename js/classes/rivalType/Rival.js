@@ -46,6 +46,8 @@ class Rival extends Sprite {
   }
 
   drawHealthBar() {
+    // const damageText = `${this.fullHealth - this.enemyHealth}`;
+
     ctx.fillStyle = "red";
     ctx.fillRect(
       this.rivalPosition.x + this.offset.x,
@@ -59,6 +61,15 @@ class Rival extends Sprite {
       this.rivalPosition.y - 15,
       this.fullHealth,
       5
+    );
+
+    // Display the damage text
+    ctx.fillStyle = "red";
+    ctx.font = "12px Arial";
+    ctx.fillText(
+      this.fullHealth,
+      this.rivalPosition.x + this.offset.x + this.enemyHealth - 30,
+      this.rivalPosition.y - 15 - 5
     );
   }
 

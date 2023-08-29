@@ -13,7 +13,7 @@ class Building extends Sprite {
       imgInfo: imgInfo,
       fixPosition: {
         x: -15,
-        y: -30,
+        y: -55,
       },
     });
     this.position = position;
@@ -58,6 +58,7 @@ class Building extends Sprite {
           projectileInfo: this.projectileInfo,
         })
       );
+      gun = new playSound("../../../assets/music/tower firing.mp3", false);
     }
     this.time++;
   }

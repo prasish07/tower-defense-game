@@ -1,6 +1,6 @@
 class OurTower {
   constructor() {
-    this.position = { x: 1300, y: 200 };
+    this.position = { x: 1300, y: 300 };
     this.size = 200;
     this.OurTowerHealth = 200;
     this.width = this.size; // Calculate width based on size
@@ -36,17 +36,24 @@ class OurTower {
   }
 
   drawTowerHealth() {
+    ctx.font = "28px Arial";
+    ctx.fillStyle = "white";
+    ctx.fillText(
+      this.OurTowerHealth,
+      this.buildingCenter.x - 100 + 70,
+      this.position.y - 10
+    );
     ctx.fillStyle = "red";
     ctx.fillRect(
       this.buildingCenter.x - 100,
-      this.position.y - 10,
+      this.position.y - 0,
       this.size,
       8
     );
     ctx.fillStyle = "green";
     ctx.fillRect(
       this.buildingCenter.x - 100,
-      this.position.y - 10,
+      this.position.y - 0,
       this.OurTowerHealth,
       8
     );
@@ -70,6 +77,10 @@ class OurTower {
         const currentRivalIndex = rivalList.indexOf(rival);
         const currentRival = rivalList[currentRivalIndex];
         this.OurTowerHealth -= currentRival.damage;
+        towerSound = new playSound(
+          "../../assets/music/tower collision with enemy.mp3",
+          false
+        );
         if (currentRivalIndex > -1) {
           rivalList.splice(currentRivalIndex, 1);
         }
