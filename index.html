@@ -23,6 +23,15 @@
             </div>
         </div>
     </div>
+    <div class="next-level">
+        <h1 class="next-level__title">Level Completed</h1>
+        <div class="next-level__buttons">
+            <button class="next-level__btn" id="next-level">
+                <i><img src="../../assets/starting/startingButton.png" alt="next level btn"></i>
+                <span>next level</span>
+            </button>
+        </div>
+    </div>
     <div class="container">
         <canvas id="canvas"></canvas>
         <div class="info">
@@ -85,9 +94,24 @@
                     </div>
                 </div>
             </div>
-            <h1 class="title">Defense your tower</h1>
+            <h1 class="title">Defense your tower
+                <span class="level">Level <span class="level-count">1</span></span>
+            </h1>
             <h4 class="wave">Wave <span class="wave__count">0</span></h4>
         </div>
+    </div>
+
+    <div class="level-editor-container">
+        <canvas id="editor-canvas"></canvas>
+        <div class="tile-palette">
+            <!-- Tile selection buttons -->
+            <button class="tile-palette__tile" data-tile-type="path"></button>
+            <button class="tile-palette__tile" data-tile-type="tower1"></button>
+            <button class="tile-palette__tile" data-tile-type="tower2"></button>
+            <button class="tile-palette__tile" data-tile-type="tower3"></button>
+        </div>
+        <button id="editor-save-button">Save Level</button>
+        <button id="editor-test-button">Test Level</button>
     </div>
 
     <div class="game-starting ">
@@ -110,6 +134,7 @@
     <script src="./js/sound/sound.js"></script>
     <script src="./js/jsonData/pathway.js"></script>
     <script src="./js/jsonData/positionBuildingTile.js"></script>
+    <script src="./js/level/levels.js"></script>
     <script src="./js/classes/BuildingPosition.js"></script>
     <script src="./js/classes/spritesAnimation/Sprite.js"></script>
     <script src="./js/classes/rivalType/Rival.js"></script>
@@ -122,6 +147,7 @@
     <script src="./js/classes//buildingType/Building_2.js"></script>
     <script src="./js/classes//buildingType/Building_3.js"></script>
     <script src="./js/classes/OurTower.js"></script>
+    <script src="./js/level/customLevel.js"></script>
     <script src="./js/script.js"></script>
 </body>
 

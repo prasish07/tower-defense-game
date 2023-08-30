@@ -1,6 +1,6 @@
 class OurTower {
   constructor() {
-    this.position = { x: 1300, y: 300 };
+    this.position = MainTowerLocation[level - 1];
     this.size = 200;
     this.OurTowerHealth = 200;
     this.width = this.size; // Calculate width based on size

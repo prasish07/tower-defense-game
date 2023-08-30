@@ -1,8 +1,33 @@
-mapArray = ["", "", ""];
+let mapArray = [
+  "../../assets/bg/level1(mod).png",
+  "../../assets/bg/level2Mod.png",
+  "../../assets/bg/level3Mod2.png",
+];
 
-mapPaths = [];
+let MainTowerLocation = [
+  {
+    x: 1300,
+    y: 300,
+  },
+  {
+    x: 1300,
+    y: 300,
+  },
+  {
+    x: 1300,
+    y: 300,
+  },
+];
 
-possibleBuildingAreas = [];
+let mapPaths = [enemyPathway1, enemyPathway2];
+
+let possibleBuildingAreas = [
+  positionBuildingTile1,
+  positionBuildingTile2,
+  positionBuildingTile3,
+];
+
+let amountOfEnemy = [2, 4, 6];
 
 function generateModifiedPathway(originalPathway, yOffsetRange, xOffsetRange) {
   const modifiedPathway = originalPathway.map((point) => {
@@ -15,14 +40,39 @@ function generateModifiedPathway(originalPathway, yOffsetRange, xOffsetRange) {
   return modifiedPathway;
 }
 
-const EnemyPathway1 = generateModifiedPathway(enemyPathway, -30, -20);
-const EnemyPathway2 = generateModifiedPathway(enemyPathway, 0, 0);
-const EnemyPathway3 = generateModifiedPathway(enemyPathway, -10, -30);
+function generateLevelData(level) {
+  level = level - 1;
+  let EnemyPathway1;
+  let EnemyPathway2;
+  let EnemyPathway3;
+  if (level === 2) {
+    EnemyPathway1 = generateModifiedPathway(enemyPathway3[0], -30, -20);
+    EnemyPathway2 = enemyPathway3[0];
+    EnemyPathway3 = enemyPathway3[1];
+  } else {
+    EnemyPathway1 = generateModifiedPathway(mapPaths[level], -30, -20);
+    EnemyPathway2 = generateModifiedPathway(mapPaths[level], 0, 0);
+    EnemyPathway3 = generateModifiedPathway(mapPaths[level], -10, -30);
+  }
 
-const enemyPathwayList = [EnemyPathway1, EnemyPathway2, EnemyPathway3];
+  const enemyPathwayList = [EnemyPathway1, EnemyPathway2, EnemyPathway3];
 
-const possibleBuilding2D = [];
+  const possibleBuilding2D = [];
 
-for (let i = 0; i < positionBuildingTile.length; i += 47) {
-  possibleBuilding2D.push(positionBuildingTile.slice(i, i + 47));
+  for (let i = 0; i < possibleBuildingAreas[level].length; i += 47) {
+    possibleBuilding2D.push(possibleBuildingAreas[level].slice(i, i + 47));
+  }
+
+  // Return the generated level data
+  return {
+    enemyPathwayList,
+    possibleBuilding2D,
+  };
 }
+
+let level = 1;
+let levelData = generateLevelData(level);
+let enemyPathwayList = levelData.enemyPathwayList;
+let possibleBuilding2D = levelData.possibleBuilding2D;
+
+let levetHtml = document.querySelector(".level-count");

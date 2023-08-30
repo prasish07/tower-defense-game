@@ -6,6 +6,7 @@ money = parseInt(moneyHtml.textContent);
 let canvas;
 let ctx;
 let bg;
+bg = new Image();
 // enemy array
 let rivalList = [];
 // building array
@@ -14,6 +15,7 @@ let buildings = [];
 let setTile = undefined;
 let tower;
 let clicked = false;
+let increase = 1;
 
 let frame;
 
@@ -54,7 +56,7 @@ function getRandomNumber() {
 
 // restart the game
 function resetGame() {
-  money = 0;
+  money = 100;
   rivalList = [];
   buildings = [];
   tower.OurTowerHealth = 100;
@@ -63,9 +65,27 @@ function resetGame() {
   isCoinNotEnough = false;
   moneyDrops = [];
   explosions = [];
+  possiblePlacementBuildings = [];
 
   // Restart the game loop
   cancelAnimationFrame(frame);
+  start();
+}
+
+function nextLevelMethod() {
+  cancelAnimationFrame(frame);
+  money = 200;
+  increase = increase + 2;
+  rivalList = [];
+  buildings = [];
+  tower.OurTowerHealth = 100;
+  waveCount = 0;
+  isMax = false;
+  isCoinNotEnough = false;
+  moneyDrops = [];
+  explosions = [];
+  possiblePlacementBuildings = [];
+  bg.src = mapArray[level - 1];
   start();
 }
 
@@ -86,7 +106,7 @@ function createGoblin(n, distance) {
   }
 }
 
-// function to create gient
+// function to create giant
 function createGiant(n, distance) {
   for (let i = 1; i < n; i++) {
     let randomValue = getRandomNumber();
@@ -149,31 +169,35 @@ cancel.addEventListener("click", () => {
 
 const start = () => {
   canvas = document.getElementById("canvas");
+  console.log("start");
   canvas.height = canvasHeight;
   canvas.width = canvasWidth;
   ctx = canvas.getContext("2d");
   ctx.fillStyle = "lightblue";
   ctx.clearRect(0, 0, canvasWidth, canvasHeight);
-  createGoblin(10, 0);
+  createGoblin(10 * increase, 0);
   tower = new OurTower();
   sound = playSound("../assets/music/tower defense music.mp4", true);
+  creatingPossibleBuilding();
   requestAnimationFrame(update);
 };
 
-possibleBuilding2D.forEach((row, y) => {
-  row.forEach((number, x) => {
-    if (number === 1921) {
-      possiblePlacementBuildings.push(
-        new BuildingPosition({
-          buildingPosition: {
-            x: x * 32,
-            y: y * 32,
-          },
-        })
-      );
-    }
+function creatingPossibleBuilding() {
+  possibleBuilding2D.forEach((row, y) => {
+    row.forEach((number, x) => {
+      if (number === 1921) {
+        possiblePlacementBuildings.push(
+          new BuildingPosition({
+            buildingPosition: {
+              x: x * 32,
+              y: y * 32,
+            },
+          })
+        );
+      }
+    });
   });
-});
+}
 
 const mouse = {
   x: undefined,
@@ -254,6 +278,7 @@ const update = () => {
 
   moneyHtml.textContent = money;
   wave.textContent = waveCount;
+  levetHtml.textContent = level;
   updateTowerAvailability();
   if (isMax) {
     ctx.fillStyle = "white";
@@ -368,10 +393,10 @@ const update = () => {
   // create waves
   if (rivalList.length <= 0) {
     waveCount++;
-    createGoblin(parseInt(20 * (waveCount + 0.5)), 30);
-    createGiant(10 * waveCount, 0);
+    createGoblin(parseInt(20 * (waveCount + 0.5) * increase), 30);
+    createGiant(10 * increase * waveCount, 0);
     if (waveCount > 2) {
-      createDragon(4 * waveCount, 0);
+      createDragon(4 * increase * waveCount, 0);
     }
   }
 
@@ -394,6 +419,13 @@ const update = () => {
     container.style.filter = "blur(5px)";
     gameOver.style.display = "flex";
   }
+
+  if (waveCount === 1) {
+    stopSound(sound);
+    cancelAnimationFrame(frame);
+    container.style.filter = "blur(5px)";
+    nextLevel.style.display = "flex";
+  }
 };
 
 gameStartingBtn.addEventListener("click", () => {
@@ -406,16 +438,27 @@ gameStartingBtn.addEventListener("click", () => {
     container.style.opacity = 1;
     container.style.display = "flex";
     container.style.visibility = "visible";
-    bg = new Image();
-    bg.src = "../assets/bg/level2Mod.png";
-    bg.onload = () => {
-      start();
-    };
+
+    bg.src = mapArray[level - 1];
+    start();
   }, 2000);
+  console.log("game starting button");
 });
 
 restart.addEventListener("click", () => {
   gameOver.style.display = "none";
   container.style.filter = "blur(0px)";
+  console.log("restart");
   resetGame();
+});
+
+nextLevelBtn.addEventListener("click", () => {
+  level++;
+  nextLevel.style.display = "none";
+  container.style.filter = "blur(0px)";
+  levelData = generateLevelData(level);
+  enemyPathwayList = levelData.enemyPathwayList;
+  possibleBuilding2D = levelData.possibleBuilding2D;
+  console.log("nextlevel");
+  nextLevelMethod();
 });

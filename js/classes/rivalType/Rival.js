@@ -96,7 +96,7 @@ class Rival extends Sprite {
         Math.abs(this.rivalVelocity.x * 3) &&
       Math.abs(Math.round(this.center.y) - Math.round(rivalPathway.y)) <
         Math.abs(this.rivalVelocity.y * 3) &&
-      this.index < enemyPathway.length - 1
+      this.index < enemyPathwayList[0].length - 1
     ) {
       this.index++;
     }

@@ -7,3 +7,7 @@ const gameLevelCreationBtn = document.querySelector(
 const loadingOverlay = document.querySelector(".game-starting__loading");
 const restart = document.getElementById("restart");
 const gameOver = document.querySelector(".game-over");
+const nextLevelBtn = document.getElementById("next-level");
+const nextLevel = document.querySelector(".next-level");
+const customLevel = document.querySelector(".game-starting__create-btn");
+const customLevelContainer = document.querySelector(".level-editor-container");
