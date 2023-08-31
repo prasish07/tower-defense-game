@@ -49,6 +49,10 @@ function generateLevelData(level) {
     EnemyPathway1 = generateModifiedPathway(enemyPathway3[0], -30, -20);
     EnemyPathway2 = enemyPathway3[0];
     EnemyPathway3 = enemyPathway3[1];
+  } else if (level === -1) {
+    EnemyPathway1 = generateModifiedPathway(enemyWaypoints, -30, -20);
+    EnemyPathway2 = generateModifiedPathway(enemyWaypoints, 0, 0);
+    EnemyPathway3 = generateModifiedPathway(enemyWaypoints, -10, -30);
   } else {
     EnemyPathway1 = generateModifiedPathway(mapPaths[level], -30, -20);
     EnemyPathway2 = generateModifiedPathway(mapPaths[level], 0, 0);
@@ -59,8 +63,14 @@ function generateLevelData(level) {
 
   const possibleBuilding2D = [];
 
-  for (let i = 0; i < possibleBuildingAreas[level].length; i += 47) {
-    possibleBuilding2D.push(possibleBuildingAreas[level].slice(i, i + 47));
+  if (level === -1) {
+    for (let i = 0; i < data.length; i += 47) {
+      possibleBuilding2D.push(data.slice(i, i + 47));
+    }
+  } else {
+    for (let i = 0; i < possibleBuildingAreas[level].length; i += 47) {
+      possibleBuilding2D.push(possibleBuildingAreas[level].slice(i, i + 47));
+    }
   }
 
   // Return the generated level data

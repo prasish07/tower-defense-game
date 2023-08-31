@@ -17,6 +17,8 @@ let tower;
 let clicked = false;
 let increase = 1;
 
+let isCustomLevel = false;
+
 let frame;
 
 let isMax = false;
@@ -123,7 +125,7 @@ function createGiant(n, distance) {
   }
 }
 
-// function to create gient
+// function to create dragon
 function createDragon(n, distance) {
   for (let i = 1; i < n; i++) {
     let randomValue = getRandomNumber();
@@ -175,6 +177,7 @@ const start = () => {
   ctx = canvas.getContext("2d");
   ctx.fillStyle = "lightblue";
   ctx.clearRect(0, 0, canvasWidth, canvasHeight);
+  console.log(enemyPathwayList);
   createGoblin(10 * increase, 0);
   tower = new OurTower();
   sound = playSound("../assets/music/tower defense music.mp4", true);
@@ -275,6 +278,17 @@ const update = () => {
   frame = requestAnimationFrame(update);
   ctx.clearRect(0, 0, canvasWidth, canvasHeight);
   ctx.drawImage(bg, 0, 0, canvasWidth, canvasHeight);
+  if (isCustomLevel) {
+    createdObject2d.forEach((row, y) => {
+      row.forEach((tile, x) => {
+        if (tile === 101) {
+          let image = new Image();
+          image.src = "../../assets/cutome level editor/tile/tile1.png";
+          ctx.drawImage(image, x * 32, y * 32, 32, 32);
+        }
+      });
+    });
+  }
 
   moneyHtml.textContent = money;
   wave.textContent = waveCount;
@@ -331,6 +345,8 @@ const update = () => {
       moneyDrops.splice(i, 1);
     }
   }
+
+  // draw the path or object if custom level
 
   // update the building
   buildings.forEach((building) => {
@@ -434,6 +450,7 @@ gameStartingBtn.addEventListener("click", () => {
   setTimeout(function () {
     gameStarting.classList.add("hide");
     gameStarting.style.display = "none";
+    customLevelContainer.style.display = "none";
     loadingOverlay.style.display = "none";
     container.style.opacity = 1;
     container.style.display = "flex";
@@ -461,4 +478,23 @@ nextLevelBtn.addEventListener("click", () => {
   possibleBuilding2D = levelData.possibleBuilding2D;
   console.log("nextlevel");
   nextLevelMethod();
+});
+
+startGame.addEventListener("click", () => {
+  // remove the ctxEditor
+  cancelAnimationFrame(editorFrame);
+  ctxEditor.clearRect(0, 0, canvasEditorWidth, canvasEditorHeight);
+  gameStarting.style.display = "none";
+  customLevelContainer.style.display = "none";
+  container.style.display = "flex";
+  container.style.visibility = "visible";
+  container.style.opacity = 1;
+  levelData = generateLevelData(-1);
+  enemyPathwayList = levelData.enemyPathwayList;
+  possibleBuilding2D = levelData.possibleBuilding2D;
+  isCustomLevel = true;
+  setTimeout(() => {
+    bg.src = "../assets/cutome level editor/map.png";
+    start();
+  }, 1000);
 });

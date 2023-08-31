@@ -105,10 +105,16 @@
         <canvas id="editor-canvas"></canvas>
         <div class="tile-palette">
             <!-- Tile selection buttons -->
-            <button class="tile-palette__tile" data-tile-type="path"></button>
+            <button class="tile-palette__tile" data-tile-type="path">
+                <img src="./assets//cutome level editor/tile/tile1.png" alt="path tile">
+            </button>
             <button class="tile-palette__tile" data-tile-type="tower1"></button>
-            <button class="tile-palette__tile" data-tile-type="tower2"></button>
-            <button class="tile-palette__tile" data-tile-type="tower3"></button>
+            <button id="towerPlaceableArea" class="tile-palette__tile">tower placement
+                area</button>
+            <button id="cancel-btn" class="tile-palette__tile" data-tile-type="tower3">cancel</button>
+            <button id="way-point" class="tile-palette__tile">Select way point</button>
+            <button id="start" class="tile-palette__tile">Start the game</button>
+
         </div>
         <button id="editor-save-button">Save Level</button>
         <button id="editor-test-button">Test Level</button>
@@ -134,8 +140,11 @@
     <script src="./js/sound/sound.js"></script>
     <script src="./js/jsonData/pathway.js"></script>
     <script src="./js/jsonData/positionBuildingTile.js"></script>
+    <script src="./js/level/selectedArea.js"></script>
+    <script src="./js/level/customLevel.js"></script>
     <script src="./js/level/levels.js"></script>
     <script src="./js/classes/BuildingPosition.js"></script>
+    <script src="./js/level/PlaceObject.js"></script>
     <script src="./js/classes/spritesAnimation/Sprite.js"></script>
     <script src="./js/classes/rivalType/Rival.js"></script>
     <script src="./js/classes/rivalType/Goblin.js"></script>
@@ -147,7 +156,6 @@
     <script src="./js/classes//buildingType/Building_2.js"></script>
     <script src="./js/classes//buildingType/Building_3.js"></script>
     <script src="./js/classes/OurTower.js"></script>
-    <script src="./js/level/customLevel.js"></script>
     <script src="./js/script.js"></script>
 </body>
 

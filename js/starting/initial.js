@@ -11,3 +11,10 @@ const nextLevelBtn = document.getElementById("next-level");
 const nextLevel = document.querySelector(".next-level");
 const customLevel = document.querySelector(".game-starting__create-btn");
 const customLevelContainer = document.querySelector(".level-editor-container");
+const wayPoint = document.getElementById("way-point");
+const tile1 = document.querySelector(
+  ".tile-palette__tile[data-tile-type='path']"
+);
+const startGame = document.getElementById("start");
+const cancelBtn = document.getElementById("cancel-btn");
+const customTowerPlacementArea = document.getElementById("towerPlaceableArea");
