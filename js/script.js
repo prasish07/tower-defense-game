@@ -184,7 +184,7 @@ const start = () => {
   ctx.clearRect(0, 0, canvasWidth, canvasHeight);
   createGoblin(10 * increase, 0);
   tower = new OurTower();
-  sound = playSound("../assets/music/tower defense music.mp4", true);
+  sound = playSound("assets/music/tower defense music.mp4", true);
   creatingPossibleBuilding();
   requestAnimationFrame(update);
 };
@@ -251,7 +251,7 @@ window.addEventListener("click", () => {
       isCoinNotEnough = true;
       return;
     }
-    landing = playSound("../assets/music/tower landing sound.mp3", false);
+    landing = playSound("assets/music/tower landing sound.mp3", false);
     setTile.isOccupied = true;
     buildings.sort((a, b) => {
       return a.position.y - b.position.y;
@@ -288,7 +288,7 @@ const update = () => {
       row.forEach((tile, x) => {
         if (tile === 101) {
           let image = new Image();
-          image.src = "../../assets/cutome level editor/tile/tile1.png";
+          image.src = "assets/cutome level editor/tile/tile1.png";
           ctx.drawImage(image, x * 32, y * 32, 32, 32);
         }
       });
@@ -387,7 +387,7 @@ const update = () => {
                 y: projectile.rival.position.y,
               };
               const moneyAmount = 50;
-              const moneyImgSrc = "../assets/coin/coin.svg";
+              const moneyImgSrc = "assets/coin/coin.svg";
               moneyDrops.push(
                 new MoneyDrop(enemyPosition, moneyAmount, moneyImgSrc)
               );
@@ -413,7 +413,7 @@ const update = () => {
                     x: rival.rivalPosition.x,
                     y: rival.rivalPosition.y,
                   },
-                  imgSrc: "../assets/pngs/enemy/poisen.png",
+                  imgSrc: "assets/pngs/enemy/poisen.png",
                   imgInfo: {
                     imgCount: 15,
                     animationHoldTime: 5,
@@ -585,7 +585,7 @@ startGame.addEventListener("click", () => {
   moneyDrops = [];
   explosions = [];
   setTimeout(() => {
-    bg.src = "../assets/cutome level editor/map.png";
+    bg.src = "assets/cutome level editor/map.png";
     start();
   }, 1000);
 });

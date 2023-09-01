@@ -13,7 +13,7 @@ let editorFrame;
 let isTowerPlaceableArea = false;
 let isEraseSelected = false;
 let towerShow = new Image();
-towerShow.src = "../../assets/pngs/castle2.png";
+towerShow.src = "assets/pngs/castle2.png";
 let tilePlaceArea = [];
 
 const saveButton = document.getElementById("saveButton");
@@ -63,8 +63,8 @@ const startCustomLevelMode = () => {
   ctxEditor = canvasEditor.getContext("2d");
   ctxEditor.fillStyle = "lightblue";
   ctxEditor.clearRect(0, 0, canvasEditorWidth, canvasEditorHeight);
-  // sound = playSound("../assets/music/tower defense music.mp4", true);
-  customLevelBg.src = "../../assets/cutome level editor/map.png";
+  // sound = playSound("assets/music/tower defense music.mp4", true);
+  customLevelBg.src = "assets/cutome level editor/map.png";
   creatingSelectionArea();
   requestAnimationFrame(updateEditor);
 };
@@ -74,7 +74,7 @@ const drawObject = () => {
     row.forEach((tile, x) => {
       if (tile === 101) {
         let image = new Image();
-        image.src = "../../assets/cutome level editor/tile/tile1.png";
+        image.src = "assets/cutome level editor/tile/tile1.png";
         ctxEditor.drawImage(image, x * 32, y * 32, 32, 32);
         tilePlaceArea.push({
           x: x,

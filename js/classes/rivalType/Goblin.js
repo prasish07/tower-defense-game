@@ -2,7 +2,7 @@ class Goblin extends Rival {
   constructor({ rivalPosition = { x: 0, y: 0 }, index }) {
     super({
       rivalPosition,
-      imgSrc: "../../../assets/pngs/enemy/goblin resize.png",
+      imgSrc: "assets/pngs/enemy/goblin resize.png",
       imgInfo: {
         imgCount: 9,
         animationHoldTime: 5,

@@ -2,7 +2,7 @@ class Giant extends Rival {
   constructor({ rivalPosition = { x: 0, y: 0 }, index }) {
     super({
       rivalPosition,
-      imgSrc: "../../../assets/pngs/enemy/gient.png",
+      imgSrc: "assets/pngs/enemy/gient.png",
       imgInfo: {
         imgCount: 7,
         animationHoldTime: 5,

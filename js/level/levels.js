@@ -1,7 +1,7 @@
 let mapArray = [
-  "../../assets/bg/level1(mod).png",
-  "../../assets/bg/level2Mod.png",
-  "../../assets/bg/level3Mod2.png",
+  "assets/bg/level1(mod).png",
+  "assets/bg/level2Mod.png",
+  "assets/bg/level3Mod2.png",
 ];
 
 let MainTowerLocation = [

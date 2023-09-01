@@ -97,7 +97,7 @@ class Building extends Sprite {
           projectileInfo: this.projectileInfo,
         })
       );
-      gun = new playSound("../../../assets/music/tower firing.mp3", false);
+      gun = new playSound("assets/music/tower firing.mp3", false);
     } else if (this.target && this.time % 100 === 0 && this.type === 3) {
       this.buildingProjectile.push(
         new Projectile({
@@ -109,7 +109,7 @@ class Building extends Sprite {
           projectileInfo: this.projectileInfo,
         })
       );
-      gun = new playSound("../../../assets/music/tower firing.mp3", false);
+      gun = new playSound("assets/music/tower firing.mp3", false);
     }
     if (this.isRemoved) {
       this.rivals.forEach((enemy) => {

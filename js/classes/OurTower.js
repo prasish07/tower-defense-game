@@ -13,7 +13,7 @@ class OurTower {
 
   drawTower() {
     let image = new Image();
-    image.src = "../../assets/pngs/castle.png";
+    image.src = "assets/pngs/castle.png";
     ctx.drawImage(
       image,
       this.position.x,
@@ -77,7 +77,7 @@ class OurTower {
         const currentRival = rivalList[currentRivalIndex];
         this.OurTowerHealth -= currentRival.damage;
         towerSound = new playSound(
-          "../../assets/music/tower collision with enemy.mp3",
+          "assets/music/tower collision with enemy.mp3",
           false
         );
         if (currentRivalIndex > -1) {

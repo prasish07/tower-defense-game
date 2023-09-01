@@ -3,7 +3,7 @@ class Building_3 extends Building {
     super({
       position,
       imgSrc:
-        "../../../assets/pngs/mage_guardian_free_creativekind/sprites/redTower.png ",
+        "assets/pngs/mage_guardian_free_creativekind/sprites/redTower.png ",
       imgInfo: {
         imgCount: 14,
         animationHoldTime: 15,
@@ -19,9 +19,9 @@ class Building_3 extends Building {
         damage: 30,
         shape: "rectangle",
         color: "red",
-        projectileSrc: "../../../assets/projectile/towers/level3Shoot.png",
+        projectileSrc: "assets/projectile/towers/level3Shoot.png",
         imgCount: 6,
-        explosionSrc: "../../../assets/projectile/towers/level3Exposion.png",
+        explosionSrc: "assets/projectile/towers/level3Exposion.png",
         explosionCount: 6,
         willExplode: true,
         explosionOffset: {
