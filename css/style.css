@@ -419,6 +419,7 @@ button {
 #erase-btn,
 #help,
 #erase-waypoints,
+#dashboard3,
 #start {
   background-color: #f39c12;
   color: white;
@@ -573,4 +574,8 @@ button {
 
 #close-help-popup:hover {
   color: #e74c3c;
+}
+
+#dashboard2 span {
+  left: 30%;
 }

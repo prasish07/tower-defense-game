@@ -7,7 +7,7 @@ class Giant extends Rival {
         imgCount: 7,
         animationHoldTime: 5,
       },
-      speed: 0.8,
+      speed: 1.5,
       enemyHealth: 100,
       offset: {
         x: 0,

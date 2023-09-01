@@ -81,6 +81,7 @@ class OurTower {
           false
         );
         if (currentRivalIndex > -1) {
+          rival.fullHealth = 0;
           rivalList.splice(currentRivalIndex, 1);
         }
       }

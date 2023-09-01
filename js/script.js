@@ -337,10 +337,6 @@ const update = () => {
       explosions.splice(i, 1);
     }
   }
-  for (let i = rivalPoised.length - 1; i >= 0; i--) {
-    const rival = rivalPoised[i];
-    rival.drawSprite();
-  }
 
   // update the building position
   for (let i = possiblePlacementBuildings.length - 1; i >= 0; i--) {
@@ -411,6 +407,23 @@ const update = () => {
             // Apply damage to rivals within the explosion radius
             if (distanceFromExplosion <= 100) {
               rival.fullHealth -= projectile.projectileInfo.damage;
+              rivalPoised.push(
+                new Sprite({
+                  position: {
+                    x: rival.rivalPosition.x,
+                    y: rival.rivalPosition.y,
+                  },
+                  imgSrc: "../assets/pngs/enemy/poisen.png",
+                  imgInfo: {
+                    imgCount: 15,
+                    animationHoldTime: 5,
+                  },
+                  fixPosition: {
+                    x: 0,
+                    y: 0,
+                  },
+                })
+              );
               if (rival.fullHealth <= 0) {
                 // remove the rival from the array
                 rivalList.splice(j, 1);
@@ -467,6 +480,7 @@ const update = () => {
     container.style.filter = "blur(5px)";
     if (isCustomLevel) {
       gameCompletedContainer.style.display = "flex";
+      restartFromStart.style.display = "none";
       return;
     }
     if (level > 2) {
@@ -603,4 +617,14 @@ restartFromStart.addEventListener("click", () => {
   possiblePlacementBuildings = [];
   bg.src = mapArray[level - 1];
   start();
+});
+
+dashboard1.addEventListener("click", () => {
+  location.reload();
+});
+dashboard2.addEventListener("click", () => {
+  location.reload();
+});
+dashboard3.addEventListener("click", () => {
+  location.reload();
 });

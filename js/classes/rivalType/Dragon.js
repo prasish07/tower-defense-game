@@ -7,7 +7,7 @@ class Dragon extends Rival {
         imgCount: 7,
         animationHoldTime: 10,
       },
-      speed: 2,
+      speed: 1.3,
       enemyHealth: 200,
       offset: {
         x: -30,

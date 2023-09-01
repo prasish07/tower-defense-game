@@ -41,3 +41,6 @@ const gameCompletedCustomBtn = document.getElementById(
 const helpBtn = document.getElementById("help");
 const closePopup = document.getElementById("close-help-popup");
 const deleteWaypoints = document.getElementById("erase-waypoints");
+const dashboard1 = document.getElementById("dashboard");
+const dashboard2 = document.getElementById("dashboard2");
+const dashboard3 = document.getElementById("dashboard3");

@@ -111,22 +111,41 @@ window.addEventListener("mousemove", (e) => {
 editor.addEventListener("click", (e) => {
   const clickX = e.offsetX;
   const clickY = e.offsetY;
-  if (isWayPointedSelected) {
-    const minTileX = Math.min(...tilePlaceArea.map((tile) => tile.x));
-    const maxTileX = Math.max(...tilePlaceArea.map((tile) => tile.x));
-    const minTileY = Math.min(...tilePlaceArea.map((tile) => tile.y));
-    const maxTileY = Math.max(...tilePlaceArea.map((tile) => tile.y));
+  // if (isWayPointedSelected) {
+  //   const minTileX = Math.min(...tilePlaceArea.map((tile) => tile.x));
+  //   const maxTileX = Math.max(...tilePlaceArea.map((tile) => tile.x));
+  //   const minTileY = Math.min(...tilePlaceArea.map((tile) => tile.y));
+  //   const maxTileY = Math.max(...tilePlaceArea.map((tile) => tile.y));
 
-    if (
-      mouseMove.x < minTileX * 32 ||
-      mouseMove.x > (maxTileX + 1) * 32 ||
-      mouseMove.y < minTileY * 32 ||
-      mouseMove.y > (maxTileY + 1) * 32
-    ) {
+  //   if (
+  //     mouseMove.x < minTileX * 32 ||
+  //     mouseMove.x > (maxTileX + 1) * 32 ||
+  //     mouseMove.y < minTileY * 32 ||
+  //     mouseMove.y > (maxTileY + 1) * 32
+  //   ) {
+  //     alert("Waypoint is outside the tile placement area");
+  //     return;
+  //   }
+  //   enemyWaypoints.push({ x: clickX, y: clickY });
+  // }
+  if (isWayPointedSelected) {
+    const isInsideTile = tilePlaceArea.some((tile) => {
+      // Detect collision with tile with mouse click
+      if (
+        clickX > tile.x * 32 &&
+        clickX < tile.x * 32 + 32 &&
+        clickY > tile.y * 32 &&
+        clickY < tile.y * 32 + 32
+      ) {
+        enemyWaypoints.push({ x: clickX, y: clickY });
+        return true; // Indicates that the click is inside a tile
+      }
+      return false; // Indicates that the click is outside this tile
+    });
+
+    if (!isInsideTile) {
       alert("Waypoint is outside the tile placement area");
-      return;
     }
-    enemyWaypoints.push({ x: clickX, y: clickY });
   }
 
   if (isTowerPlaceableArea) {

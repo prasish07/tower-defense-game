@@ -31,6 +31,8 @@ class Building extends Sprite {
     this.buildingProjectile = [];
     this.time = 0;
     this.cost = cost;
+    this.poisonedEffects = [];
+    this.type = imgInfo.type;
   }
   drawCurrentBuilding() {
     super.drawSprite();
@@ -62,30 +64,13 @@ class Building extends Sprite {
           // rival.speed *= this.info.slowSpeed;
           rival.speed = 1;
           rival.isSlowed = true;
-          rivalPoised.push(
-            new Sprite({
-              position: {
-                x: rival.rivalPosition.x,
-                y: rival.rivalPosition.y,
-              },
-              imgSrc: "../assets/pngs/enemy/poisen.png",
-              imgInfo: {
-                imgCount: 15,
-                animationHoldTime: 5,
-              },
-              fixPosition: {
-                x: 0,
-                y: 0,
-              },
-            })
-          );
         }
       } else {
         // Rival is outside tower's range
         if (rival.isSlowed) {
           // Restore the rival's original speed and mark them as not slowed
           // rival.speed /= this.info.slowSpeed;
-          rival.speed = 2;
+          rival.speed = rival.actualSpeed;
           rival.isSlowed = false;
         }
       }
@@ -101,7 +86,7 @@ class Building extends Sprite {
           projectileInfo: this.projectileInfo,
         })
       );
-    } else if (this.target && this.time % 50 === 0) {
+    } else if (this.target && this.time % 50 === 0 && this.type === 2) {
       this.buildingProjectile.push(
         new Projectile({
           position: {
@@ -113,9 +98,24 @@ class Building extends Sprite {
         })
       );
       gun = new playSound("../../../assets/music/tower firing.mp3", false);
-      // this.rivals.forEach((rival) => {
-      //   rival.speed = this.info.slowSpeed;
-      // });
+    } else if (this.target && this.time % 100 === 0 && this.type === 3) {
+      this.buildingProjectile.push(
+        new Projectile({
+          position: {
+            x: this.buildingCenter.x,
+            y: this.buildingCenter.y,
+          },
+          rival: this.target,
+          projectileInfo: this.projectileInfo,
+        })
+      );
+      gun = new playSound("../../../assets/music/tower firing.mp3", false);
+    }
+    if (this.isRemoved) {
+      this.rivals.forEach((enemy) => {
+        enemy.speed = enemy.actualSpeed;
+        enemy.isSlowed = false;
+      });
     }
     this.time++;
   }

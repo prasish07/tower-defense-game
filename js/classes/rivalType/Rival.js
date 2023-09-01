@@ -28,6 +28,7 @@ class Rival extends Sprite {
     // this.enemyHealth = enemyHealth ? enemyHealth : 200;
     this.enemyHealth = enemyHealth;
     this.fullHealth = this.enemyHealth;
+    this.actualSpeed = speed;
     this.speed = speed;
     this.offset = offset;
     this.money = money;
