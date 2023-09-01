@@ -17,12 +17,13 @@
                     <i><img src="../../assets/starting/startingButton.png" alt="starting btn"></i>
                     <span>Restart</span>
                 </button>
-                <button class="game-over__btn game-over_create-btn"><i><img
+                <button class="game-over__btn game-over_create-btn" id="game-over__custom-level"><i><img
                             src="../../assets/starting/startingButton.png" alt="starting btn"></i>
                     <span>Create your own level</span></button>
             </div>
         </div>
     </div>
+
     <div class="next-level">
         <h1 class="next-level__title">Level Completed</h1>
         <div class="next-level__buttons">
@@ -32,6 +33,7 @@
             </button>
         </div>
     </div>
+
     <div class="container">
         <canvas id="canvas"></canvas>
         <div class="info">
@@ -97,7 +99,7 @@
             <h1 class="title">Defense your tower
                 <span class="level">Level <span class="level-count">1</span></span>
             </h1>
-            <h4 class="wave">Wave <span class="wave__count">0</span></h4>
+            <h4 class="wave">Wave <span class="wave__out-of"><span class="wave__count">0</span>/ 3</span></h4>
         </div>
     </div>
 
@@ -105,22 +107,83 @@
         <canvas id="editor-canvas"></canvas>
         <div class="tile-palette">
             <!-- Tile selection buttons -->
-            <button class="tile-palette__tile" data-tile-type="path">
-                <img src="./assets//cutome level editor/tile/tile1.png" alt="path tile">
+            <div class="level-editor__path">
+                Select the tile to draw path :
+                <button class="tile-palette__tile" data-tile-type="path">
+                    <img src="./assets//cutome level editor/tile/tile1.png" alt="path tile">
+                </button>
+            </div>
+            <!-- <button class="tile-palette__tile" data-tile-type="tree1">
+                <img src="./assets//cutome level editor/tile/tree1.png" alt="path tile">
             </button>
-            <button class="tile-palette__tile" data-tile-type="tower1"></button>
-            <button id="towerPlaceableArea" class="tile-palette__tile">tower placement
-                area</button>
-            <button id="cancel-btn" class="tile-palette__tile" data-tile-type="tower3">cancel</button>
-            <button id="way-point" class="tile-palette__tile">Select way point</button>
-            <button id="start" class="tile-palette__tile">Start the game</button>
+            <button class="tile-palette__tile" data-tile-type="tree2">
+                <img src="./assets//cutome level editor/tile/tree2.png" alt="path tile">
+            </button>
+            <button class="tile-palette__tile" data-tile-type="tree3">
+                <img src="./assets//cutome level editor/tile/tree3.png" alt="path tile">
+            </button>
+            <button class="tile-palette__tile" data-tile-type="tree4">
+                <img src="./assets//cutome level editor/tile/tree4.png" alt="path tile">
+            </button>
+            <button class="tile-palette__tile"></button> -->
+            <div class="level-editor__options">
+                Options :
+                <button id="cancel-btn" class="tile-palette__tile">Cancel</button>
+                <button id="erase-btn" class="tile-palette__tile">Erase</button>
+                <button id="erase-waypoints" class="tile-palette__tile">Delete waypoints</button>
+                <button id="towerPlaceableArea" class="tile-palette__tile">Tower placement
+                    area</button>
+                <button id="way-point" class="tile-palette__tile">Select way point</button>
+                <button id="help" class="tile-palette__tile">Help</button>
+                <button id="start" class="tile-palette__tile">Start the game</button>
+            </div>
 
         </div>
-        <button id="editor-save-button">Save Level</button>
-        <button id="editor-test-button">Test Level</button>
+        <!-- <button id="editor-save-button">Save Level</button>
+        <button id="editor-test-button">Test Level</button> -->
+        <div class="help-popup" id="help-popup">
+            <div class="help-option">
+                <h2 class="help-option__title">Need Help?</h2>
+                <ul class="help-option__points">
+                    <li>Point 1: You can draw the path, where the enemy travel with the tile show in top.</li>
+                    <li>Point 2: By clicking the tile, it will be selected and you can click or press the mouse to draw
+                        the tile.</li>
+                    <li>Point 3: By clicking on the select the way, you can give the enemy direction to your
+                        castle.(Note: Only
+                        up to 8 point can be selected)</li>
+                    <li>Point 4: By Clicking on tower placement area you can choose point in which you can land your
+                        tower to protect your castle from enemy.</li>
+                    <li>Point 5: With the help of erase you can erase any thing has been drawn on the map</li>
+                    <li>Point 6: With the help of cancel you can unselect any tile or button you have press.</li>
+                    <li>Point 7: You can start you custom created level by clicking on the Start the game</li>
+                </ul>
+                <p>Thank you for reading this, Have fun playing this game!!!</p>
+            </div>
+            <button id="close-help-popup">Close</button>
+        </div>
     </div>
 
-    <div class="game-starting ">
+    <div class="game-completed">
+        <div class="game-completed__content">
+            <h1 class="game-completed__title">Game Completed</h1>
+            <div class="game-completed__buttons">
+                <button class="game-completed__btn" id="restart-level">
+                    <i><img src="../../assets/starting/startingButton.png" alt="starting btn"></i>
+                    <span>Restart this level</span>
+                </button>
+                <button class="game-completed__btn" id="restart-from-start">
+                    <i><img src="../../assets/starting/startingButton.png" alt="starting btn"></i>
+                    <span>Restart from start</span>
+                </button>
+                <button class="custom-create-btn" id="game-completed__custom-level"><i><img
+                            src="../../assets/starting/startingButton.png" alt="starting btn"></i>
+                    <span>Create your own level</span></button>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="game-starting">
         <div class="game-starting__buttons">
             <button class="game-starting__btn">
                 <i><img src="../../assets/starting/startingButton.png" alt="starting btn"></i>
@@ -134,6 +197,7 @@
             <div class="loading-animation" />
         </div>
     </div>
+
 
     <script src="./js/starting/initial.js"></script>
     <script src="./js/classes/money/MoneyDrop.js"></script>

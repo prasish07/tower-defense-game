@@ -64,10 +64,13 @@ function generateLevelData(level) {
   const possibleBuilding2D = [];
 
   if (level === -1) {
+    console.log("this is running ");
+    console.log(data);
     for (let i = 0; i < data.length; i += 47) {
       possibleBuilding2D.push(data.slice(i, i + 47));
     }
   } else {
+    console.log("this is also running else part");
     for (let i = 0; i < possibleBuildingAreas[level].length; i += 47) {
       possibleBuilding2D.push(possibleBuildingAreas[level].slice(i, i + 47));
     }
@@ -85,4 +88,4 @@ let levelData = generateLevelData(level);
 let enemyPathwayList = levelData.enemyPathwayList;
 let possibleBuilding2D = levelData.possibleBuilding2D;
 
-let levetHtml = document.querySelector(".level-count");
+let levelHtml = document.querySelector(".level-count");

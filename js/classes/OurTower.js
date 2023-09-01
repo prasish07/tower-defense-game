@@ -64,7 +64,6 @@ class OurTower {
     const distanceY = enemy.center.y - this.buildingCenter.y;
     const distance = Math.hypot(distanceX, distanceY);
     if (distance < this.size - 100) {
-      console.log("collided");
       return true;
     }
   }

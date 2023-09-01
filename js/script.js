@@ -86,6 +86,7 @@ function nextLevelMethod() {
   isCoinNotEnough = false;
   moneyDrops = [];
   explosions = [];
+  possibleBuilding2D = [];
   possiblePlacementBuildings = [];
   bg.src = mapArray[level - 1];
   start();
@@ -171,13 +172,12 @@ cancel.addEventListener("click", () => {
 
 const start = () => {
   canvas = document.getElementById("canvas");
-  console.log("start");
+
   canvas.height = canvasHeight;
   canvas.width = canvasWidth;
   ctx = canvas.getContext("2d");
   ctx.fillStyle = "lightblue";
   ctx.clearRect(0, 0, canvasWidth, canvasHeight);
-  console.log(enemyPathwayList);
   createGoblin(10 * increase, 0);
   tower = new OurTower();
   sound = playSound("../assets/music/tower defense music.mp4", true);
@@ -225,12 +225,13 @@ window.addEventListener("click", () => {
       money += currentBuilding.cost / 2;
       buildings.splice(indexToRemove, 1);
       setTile.isOccupied = false;
-      console.log(setTile);
     }
   }
   if (buildings.length >= 10) {
     isMax = true;
     return;
+  } else if (buildings.length < 10) {
+    isMax = false;
   }
   if (setTile && !setTile.isOccupied) {
     if (selectedTower === 0 && money >= 20) {
@@ -292,7 +293,10 @@ const update = () => {
 
   moneyHtml.textContent = money;
   wave.textContent = waveCount;
-  levetHtml.textContent = level;
+  levelHtml.textContent = level;
+  if (isCustomLevel) {
+    levelHtml.textContent = 0;
+  }
   updateTowerAvailability();
   if (isMax) {
     ctx.fillStyle = "white";
@@ -421,26 +425,27 @@ const update = () => {
 
   // Ending the game
   if (tower.OurTowerHealth <= 0) {
-    // ctx.fillStyle = "rgba(0, 0, 0, 0.5)";
-    // ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-    // ctx.fillStyle = "white";
-    // ctx.font = "100px Arial";
-    // ctx.textAlign = "center";
-    // ctx.textBaseline = "middle";
-    // ctx.fillText("Game Over", canvas.width / 2, canvas.height / 2);
+    // clear the canvas
+    ctx.clearRect(0, 0, canvasWidth, canvasHeight);
     stopSound(sound);
     cancelAnimationFrame(frame);
-    console.log(gameOver);
     container.style.filter = "blur(5px)";
     gameOver.style.display = "flex";
   }
 
-  if (waveCount === 1) {
+  if (waveCount === 4) {
     stopSound(sound);
     cancelAnimationFrame(frame);
     container.style.filter = "blur(5px)";
-    nextLevel.style.display = "flex";
+    if (isCustomLevel) {
+      gameCompletedContainer.style.display = "flex";
+      return;
+    }
+    if (level > 2) {
+      gameCompletedContainer.style.display = "flex";
+    } else {
+      nextLevel.style.display = "flex";
+    }
   }
 };
 
@@ -459,13 +464,12 @@ gameStartingBtn.addEventListener("click", () => {
     bg.src = mapArray[level - 1];
     start();
   }, 2000);
-  console.log("game starting button");
 });
 
 restart.addEventListener("click", () => {
   gameOver.style.display = "none";
   container.style.filter = "blur(0px)";
-  console.log("restart");
+
   resetGame();
 });
 
@@ -476,25 +480,99 @@ nextLevelBtn.addEventListener("click", () => {
   levelData = generateLevelData(level);
   enemyPathwayList = levelData.enemyPathwayList;
   possibleBuilding2D = levelData.possibleBuilding2D;
-  console.log("nextlevel");
   nextLevelMethod();
 });
 
+//  clicking the start button in custom mode
 startGame.addEventListener("click", () => {
+  if (tilePlaceArea.length === 0 || enemyWaypoints.length === 0) {
+    alert(
+      "Either the way point or tile is not place, Please complete all the step to start the game!!"
+    );
+    return;
+  }
+
+  const towerLeft = 1300;
+  const towerTop = 300;
+  const towerWidth = 200;
+  const towerHeight = 200;
+  const towerRight = towerLeft + towerWidth;
+  const towerBottom = towerTop + towerHeight;
+
+  const collidesWithTower = enemyWaypoints.some((point) => {
+    const pointX = point.x;
+    const pointY = point.y;
+    return (
+      pointX >= towerLeft &&
+      pointX <= towerRight &&
+      pointY >= towerTop &&
+      pointY <= towerBottom
+    );
+  });
+
+  if (!collidesWithTower) {
+    alert("No waypoint collides with our castle!!!.");
+    return;
+  }
+
   // remove the ctxEditor
   cancelAnimationFrame(editorFrame);
+  cancelAnimationFrame(frame);
   ctxEditor.clearRect(0, 0, canvasEditorWidth, canvasEditorHeight);
+  // ctx.clearRect(0, 0, canvasWidth, canvasHeight);
   gameStarting.style.display = "none";
   customLevelContainer.style.display = "none";
   container.style.display = "flex";
   container.style.visibility = "visible";
   container.style.opacity = 1;
-  levelData = generateLevelData(-1);
+  container.style.filter = "blur(0px)";
+  possibleBuilding2D = [];
+  possiblePlacementBuildings = [];
+  levelData = generateLevelData(0);
   enemyPathwayList = levelData.enemyPathwayList;
   possibleBuilding2D = levelData.possibleBuilding2D;
+  // console.log(possibleBuilding2D);
   isCustomLevel = true;
+  money = 200;
+  rivalList = [];
+  buildings = [];
+  // tower.OurTowerHealth = 100;
+  waveCount = 0;
+  isMax = false;
+  isCoinNotEnough = false;
+  moneyDrops = [];
+  explosions = [];
   setTimeout(() => {
     bg.src = "../assets/cutome level editor/map.png";
     start();
   }, 1000);
+});
+
+restartCurrentLevel.addEventListener("click", () => {
+  gameCompletedContainer.style.display = "none";
+  container.style.filter = "blur(0px)";
+  resetGame();
+});
+
+restartFromStart.addEventListener("click", () => {
+  gameCompletedContainer.style.display = "none";
+  container.style.filter = "blur(0px)";
+  level = 1;
+  levelData = generateLevelData(level);
+  enemyPathwayList = levelData.enemyPathwayList;
+  possibleBuilding2D = levelData.possibleBuilding2D;
+  cancelAnimationFrame(frame);
+  money = 200;
+  increase = increase + 2;
+  rivalList = [];
+  buildings = [];
+  tower.OurTowerHealth = 100;
+  waveCount = 0;
+  isMax = false;
+  isCoinNotEnough = false;
+  moneyDrops = [];
+  explosions = [];
+  possiblePlacementBuildings = [];
+  bg.src = mapArray[level - 1];
+  start();
 });

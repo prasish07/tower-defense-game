@@ -2,9 +2,9 @@ class SelectedArea {
   constructor({ position = { x: 0, y: 0 } }) {
     this.position = position;
     this.size = 32;
-    this.placementColor = "rgba(0,255,0,0.02)";
-    this.mouseOver = false; // Track mouse state
-    this.isOccupied = false; // Track if there is already a build exist in that tile
+    this.placementColor = "rgba(0,255,0,0.1)";
+    this.mouseOver = false;
+    this.isOccupied = false;
   }
 
   drawPosition() {
@@ -26,7 +26,7 @@ class SelectedArea {
       customLevelContainer.classList.add("mouse");
       this.mouseOver = true;
     } else if (!isMouseOver && this.mouseOver) {
-      this.placementColor = "rgba(0,255,0,0.02)";
+      this.placementColor = "rgba(0,255,0,0.1)";
       customLevelContainer.classList.remove("mouse");
       this.mouseOver = false;
     }
@@ -89,14 +89,15 @@ let data = [
   92, 92, 92, 92, 92, 92, 92, 92, 92, 92, 92, 92, 92, 92, 92, 92, 92, 92, 92,
   93, 94, 95, 96,
 ];
-console.log("data length", data.length);
+
+let data2 = [...data];
 
 const width = 47;
 const height = 21;
 const tileWidth = 32;
 const tileHeight = 32;
-const selectionArea2d = [];
-const selectionAreaList = [];
+let selectionArea2d = [];
+let selectionAreaList = [];
 
 for (let i = 0; i < data.length; i += 47) {
   selectionArea2d.push(data.slice(i, i + 47));
