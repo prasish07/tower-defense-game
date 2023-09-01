@@ -9,6 +9,7 @@ let bg;
 bg = new Image();
 // enemy array
 let rivalList = [];
+let rivalPoised = [];
 // building array
 let possiblePlacementBuildings = [];
 let buildings = [];
@@ -88,6 +89,9 @@ function nextLevelMethod() {
   explosions = [];
   possibleBuilding2D = [];
   possiblePlacementBuildings = [];
+  levelData = generateLevelData(level);
+  enemyPathwayList = levelData.enemyPathwayList;
+  possibleBuilding2D = levelData.possibleBuilding2D;
   bg.src = mapArray[level - 1];
   start();
 }
@@ -333,6 +337,10 @@ const update = () => {
       explosions.splice(i, 1);
     }
   }
+  for (let i = rivalPoised.length - 1; i >= 0; i--) {
+    const rival = rivalPoised[i];
+    rival.drawSprite();
+  }
 
   // update the building position
   for (let i = possiblePlacementBuildings.length - 1; i >= 0; i--) {
@@ -363,6 +371,7 @@ const update = () => {
       return distance < building.buildingRadius + rival.radius;
     });
     building.target = targetedRivals[0];
+    building.rivals = targetedRivals;
     for (let i = building.buildingProjectile.length - 1; i >= 0; i--) {
       let projectile = building.buildingProjectile[i];
       projectile.updateProjectile();
@@ -372,7 +381,43 @@ const update = () => {
       const distance = Math.hypot(distanceX, distanceY);
       if (distance < projectile.radius + projectile.rival.radius) {
         building.buildingProjectile.splice(i, 1);
-        projectile.rival.fullHealth -= projectile.projectileInfo.damage;
+        if (!building.projectileInfo.willExplode) {
+          projectile.rival.fullHealth -= projectile.projectileInfo.damage;
+          if (projectile.rival.fullHealth <= 0) {
+            let currentEnemyIndex = rivalList.indexOf(projectile.rival);
+            if (currentEnemyIndex > -1) {
+              const enemyPosition = {
+                x: projectile.rival.position.x,
+                y: projectile.rival.position.y,
+              };
+              const moneyAmount = 50;
+              const moneyImgSrc = "../assets/coin/coin.svg";
+              moneyDrops.push(
+                new MoneyDrop(enemyPosition, moneyAmount, moneyImgSrc)
+              );
+              rivalList.splice(currentEnemyIndex, 1);
+              money += moneyAmount;
+            }
+          }
+        } else {
+          // Loop through rivals within the explosion radius and apply damage
+          for (let j = rivalList.length - 1; j >= 0; j--) {
+            const rival = rivalList[j];
+            const distanceFromExplosion = Math.hypot(
+              rival.center.x - projectile.position.x,
+              rival.center.y - projectile.position.y
+            );
+
+            // Apply damage to rivals within the explosion radius
+            if (distanceFromExplosion <= 100) {
+              rival.fullHealth -= projectile.projectileInfo.damage;
+              if (rival.fullHealth <= 0) {
+                // remove the rival from the array
+                rivalList.splice(j, 1);
+              }
+            }
+          }
+        }
 
         // pushing explosion sprites to the array
         explosions.push(
@@ -384,28 +429,11 @@ const update = () => {
               animationHoldTime: 5,
             },
             fixPosition: {
-              x: -50,
-              y: 0,
+              x: -50 + projectile.projectileInfo.explosionOffset.x,
+              y: 0 + projectile.projectileInfo.explosionOffset.y,
             },
           })
         );
-
-        if (projectile.rival.fullHealth <= 0) {
-          let currentEnemyIndex = rivalList.indexOf(projectile.rival);
-          if (currentEnemyIndex > -1) {
-            const enemyPosition = {
-              x: projectile.rival.position.x,
-              y: projectile.rival.position.y,
-            };
-            const moneyAmount = 50; // Set the amount of money dropped here
-            const moneyImgSrc = "../assets/coin/coin.svg"; // Set the image source here
-            moneyDrops.push(
-              new MoneyDrop(enemyPosition, moneyAmount, moneyImgSrc)
-            );
-            rivalList.splice(currentEnemyIndex, 1);
-            money += moneyAmount;
-          }
-        }
       }
     }
   });

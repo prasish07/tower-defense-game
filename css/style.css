@@ -113,13 +113,15 @@ img {
   background-color: rgba(0, 0, 0, 0.4);
   border-radius: 20px;
   z-index: 10;
-  width: 200px;
+  width: auto;
+  min-width: 300px;
   justify-content: center;
   align-items: start;
   margin-top: 10px;
   font-size: 18px;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.4);
   display: none;
+  text-align: justify;
 }
 
 #tower__1:hover .tower__info {

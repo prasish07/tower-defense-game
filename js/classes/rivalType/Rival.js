@@ -32,6 +32,7 @@ class Rival extends Sprite {
     this.offset = offset;
     this.money = money;
     this.damage = damage;
+    this.isSlowed;
 
     // getting the center of our enemy
     this.center = {

@@ -8,7 +8,7 @@ class Projectile extends Sprite {
         animationHoldTime: 5,
       },
       fixPosition: {
-        x: -15,
+        x: -10,
         y: -35,
       },
     });
