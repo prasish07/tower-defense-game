@@ -83,7 +83,7 @@ function resetGame() {
 function nextLevelMethod() {
   cancelAnimationFrame(frame);
   money = 200;
-  increase = increase + 2;
+  increase = increase + 1;
   rivalList = [];
   buildings = [];
   tower.OurTowerHealth = 100;
