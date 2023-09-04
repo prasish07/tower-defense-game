@@ -579,3 +579,12 @@ button {
 #dashboard2 span {
   left: 30%;
 }
+
+.tower-preview {
+  position: absolute;
+  display: none;
+  width: 100px;
+  height: 100px;
+  opacity: 0.2;
+  border-radius: 20px;
+}

@@ -30,6 +30,10 @@ let tower2;
 let tower3;
 let cancel;
 
+const towerPreview = document.getElementById("towerPreview");
+const towerPreviewOffsetX = 20;
+const towerPreviewOffsetY = 20;
+
 // explosion
 let explosions = [];
 
@@ -162,17 +166,22 @@ function updateTowerAvailability() {
   });
 }
 
+// Add an event listener to update the tower preview when a tower is selected
 tower1.addEventListener("click", () => {
   selectedTower = 0;
+  updateTowerPreview("assets/towers/mage_guardian_blue.png");
 });
 tower2.addEventListener("click", () => {
   selectedTower = 1;
+  updateTowerPreview("assets/towers/mage_guardian_magenta.png");
 });
 tower3.addEventListener("click", () => {
   selectedTower = 2;
+  updateTowerPreview("assets/towers/mage_guardian_red.png");
 });
 cancel.addEventListener("click", () => {
   selectedTower = 3;
+  hideTowerPreview();
 });
 
 const start = () => {
@@ -189,6 +198,17 @@ const start = () => {
   creatingPossibleBuilding();
   requestAnimationFrame(update);
 };
+
+// Function to update the tower preview image source
+function updateTowerPreview(imageSrc) {
+  towerPreview.src = imageSrc;
+  towerPreview.style.display = "block";
+}
+
+// Function to hide the tower preview
+function hideTowerPreview() {
+  towerPreview.style.display = "none";
+}
 
 function creatingPossibleBuilding() {
   possibleBuilding2D.forEach((row, y) => {
@@ -261,6 +281,10 @@ window.addEventListener("click", () => {
 });
 
 window.addEventListener("mousemove", (e) => {
+  if (selectedTower !== 3) {
+    towerPreview.style.left = e.clientX + towerPreviewOffsetX + "px";
+    towerPreview.style.top = e.clientY + towerPreviewOffsetY + "px";
+  }
   clicked = false;
   mouse.x = e.x;
   mouse.y = e.y;
