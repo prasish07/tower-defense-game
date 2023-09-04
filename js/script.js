@@ -364,7 +364,7 @@ const update = () => {
       const distanceX = rival.center.x - building.buildingCenter.x;
       const distanceY = rival.center.y - building.buildingCenter.y;
       const distance = Math.hypot(distanceX, distanceY);
-      return distance < building.buildingRadius + rival.radius;
+      return distance <= building.buildingRadius + rival.radius;
     });
     building.target = targetedRivals[0];
     building.rivals = targetedRivals;

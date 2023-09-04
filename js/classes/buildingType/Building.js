@@ -52,16 +52,15 @@ class Building extends Sprite {
   updateCurrentBuilding() {
     this.drawCurrentBuilding();
     this.rivals.forEach((rival) => {
-      const distance = Math.sqrt(
-        (rival.position.x - this.buildingCenter.x) ** 2 +
-          (rival.position.y - this.buildingCenter.y) ** 2
+      const distance = Math.hypot(
+        rival.center.x - this.buildingCenter.x,
+        rival.center.y - this.buildingCenter.y
       );
 
-      if (distance <= this.buildingRadius) {
+      if (distance <= this.buildingRadius + rival.radius) {
         // Rival is within tower's range
         if (!rival.isSlowed && this.info.hasSlowEffect) {
           // Slow the rival and mark them as slowed
-          // rival.speed *= this.info.slowSpeed;
           rival.speed = 1;
           rival.isSlowed = true;
         }
@@ -69,7 +68,6 @@ class Building extends Sprite {
         // Rival is outside tower's range
         if (rival.isSlowed) {
           // Restore the rival's original speed and mark them as not slowed
-          // rival.speed /= this.info.slowSpeed;
           rival.speed = rival.actualSpeed;
           rival.isSlowed = false;
         }
@@ -110,12 +108,6 @@ class Building extends Sprite {
         })
       );
       gun = new playSound("assets/music/tower firing.mp3", false);
-    }
-    if (this.isRemoved) {
-      this.rivals.forEach((enemy) => {
-        enemy.speed = enemy.actualSpeed;
-        enemy.isSlowed = false;
-      });
     }
     this.time++;
   }
