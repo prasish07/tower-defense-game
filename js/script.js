@@ -155,9 +155,6 @@ function createDragon(n, distance) {
 // function to check available tower
 function updateTowerAvailability() {
   towerElements.forEach((tower, index) => {
-    // if (index === selectedTower) {
-    //   tower.classList.remove("grayed-out");
-    // } else
     if (index !== 3 && money < towerCosts[index]) {
       tower.classList.add("grayed-out");
     } else {
@@ -312,6 +309,7 @@ const update = () => {
   frame = requestAnimationFrame(update);
   ctx.clearRect(0, 0, canvasWidth, canvasHeight);
   ctx.drawImage(bg, 0, 0, canvasWidth, canvasHeight);
+
   if (isCustomLevel) {
     createdObject2d.forEach((row, y) => {
       row.forEach((tile, x) => {
@@ -382,8 +380,6 @@ const update = () => {
       moneyDrops.splice(i, 1);
     }
   }
-
-  // draw the path or object if custom level
 
   // update the building
   buildings.forEach((building) => {
@@ -608,7 +604,6 @@ startGame.addEventListener("click", () => {
   cancelAnimationFrame(editorFrame);
   cancelAnimationFrame(frame);
   ctxEditor.clearRect(0, 0, canvasEditorWidth, canvasEditorHeight);
-  // ctx.clearRect(0, 0, canvasWidth, canvasHeight);
   gameStarting.style.display = "none";
   customLevelContainer.style.display = "none";
   container.style.display = "flex";
@@ -620,12 +615,10 @@ startGame.addEventListener("click", () => {
   levelData = generateLevelData(0);
   enemyPathwayList = levelData.enemyPathwayList;
   possibleBuilding2D = levelData.possibleBuilding2D;
-  // console.log(possibleBuilding2D);
   isCustomLevel = true;
   money = 200;
   rivalList = [];
   buildings = [];
-  // tower.OurTowerHealth = 100;
   waveCount = 0;
   isMax = false;
   isCoinNotEnough = false;
