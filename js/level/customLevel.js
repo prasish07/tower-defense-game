@@ -94,7 +94,6 @@ const updateEditor = () => {
   ctxEditor.drawImage(customLevelBg, 0, 0);
 
   selectionAreaList.forEach((build) => build.updatePosition(mouseMove));
-  // createdObjectList.forEach((obj) => obj.updatePosition());
   tilePlaceArea = [];
   drawObject();
   drawWayPoints();
@@ -111,23 +110,6 @@ window.addEventListener("mousemove", (e) => {
 editor.addEventListener("click", (e) => {
   const clickX = e.offsetX;
   const clickY = e.offsetY;
-  // if (isWayPointedSelected) {
-  //   const minTileX = Math.min(...tilePlaceArea.map((tile) => tile.x));
-  //   const maxTileX = Math.max(...tilePlaceArea.map((tile) => tile.x));
-  //   const minTileY = Math.min(...tilePlaceArea.map((tile) => tile.y));
-  //   const maxTileY = Math.max(...tilePlaceArea.map((tile) => tile.y));
-
-  //   if (
-  //     mouseMove.x < minTileX * 32 ||
-  //     mouseMove.x > (maxTileX + 1) * 32 ||
-  //     mouseMove.y < minTileY * 32 ||
-  //     mouseMove.y > (maxTileY + 1) * 32
-  //   ) {
-  //     alert("Waypoint is outside the tile placement area");
-  //     return;
-  //   }
-  //   enemyWaypoints.push({ x: clickX, y: clickY });
-  // }
   if (isWayPointedSelected) {
     const isInsideTile = tilePlaceArea.some((tile) => {
       // Detect collision with tile with mouse click
