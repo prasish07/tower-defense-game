@@ -434,6 +434,12 @@ button {
 #cancel-btn:hover,
 #saveButton:hover,
 #way-point:hover,
+#start:hover,
+#towerPlaceableArea:hover,
+#erase-btn:hover,
+#help:hover,
+#erase-waypoints:hover,
+#dashboard3:hover,
 #start:hover {
   background-color: #e87e04;
 }
