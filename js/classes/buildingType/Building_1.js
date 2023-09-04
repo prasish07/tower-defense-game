@@ -25,8 +25,8 @@ class Building_1 extends Building {
         explosionCount: 7,
         willExplode: false,
         explosionOffset: {
-          x: 0,
-          y: 0,
+          x: 20,
+          y: -30,
         },
       },
       cost: 20,

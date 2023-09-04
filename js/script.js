@@ -35,6 +35,7 @@ let explosions = [];
 
 // money
 let moneyDrops = [];
+const moneyImgSrc = "assets/coin/coin.svg";
 
 let isCoinNotEnough = false;
 
@@ -386,8 +387,8 @@ const update = () => {
                 x: projectile.rival.position.x,
                 y: projectile.rival.position.y,
               };
-              const moneyAmount = 50;
-              const moneyImgSrc = "assets/coin/coin.svg";
+              const moneyAmount = projectile.rival.money;
+
               moneyDrops.push(
                 new MoneyDrop(enemyPosition, moneyAmount, moneyImgSrc)
               );
@@ -425,8 +426,14 @@ const update = () => {
                 })
               );
               if (rival.fullHealth <= 0) {
+                const moneyAmount = rival.money;
+                const enemyPosition = rival.rivalPosition;
+                moneyDrops.push(
+                  new MoneyDrop(enemyPosition, moneyAmount, moneyImgSrc)
+                );
                 // remove the rival from the array
                 rivalList.splice(j, 1);
+                money += moneyAmount;
               }
             }
           }

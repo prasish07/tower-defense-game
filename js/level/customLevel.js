@@ -185,9 +185,9 @@ editor.addEventListener("click", (e) => {
     }
   }
 
-  if (enemyWaypoints.length > 8 && isWayPointedSelected) {
+  if (enemyWaypoints.length > 15 && isWayPointedSelected) {
     // Display a message indicating that at least 6 waypoints are selected with alert
-    alert("You have selected 8 waypoints");
+    alert("You have selected 15 waypoints");
 
     isWayPointedSelected = false;
   }

@@ -107,7 +107,7 @@ class Building extends Sprite {
           projectileInfo: this.projectileInfo,
         })
       );
-      gun = new playSound("assets/music/tower firing.mp3", false);
+      gun = new playSound("../../../assets/music/tower3Sound.mp3", false);
     }
     this.time++;
   }

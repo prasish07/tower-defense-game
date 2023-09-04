@@ -24,6 +24,17 @@ class MoneyDrop {
 
   draw() {
     const drawY = this.position.y + this.currentAnimationDistance;
-    ctx.drawImage(this.moneyImg, this.position.x, drawY, 32, 32); // Adjust the size as needed
+    ctx.drawImage(this.moneyImg, this.position.x, drawY, 32, 32);
+
+    // Set the font style for the amount text
+    ctx.font = "22px Arial";
+    ctx.fillStyle = "gold";
+
+    // Calculate the position to display the amount
+    const textX = this.position.x - 25;
+    const textY = drawY + 25;
+
+    // Draw the amount text
+    ctx.fillText(this.amount, textX, textY);
   }
 }
