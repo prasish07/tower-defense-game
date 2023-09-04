@@ -169,18 +169,22 @@ function updateTowerAvailability() {
 // Add an event listener to update the tower preview when a tower is selected
 tower1.addEventListener("click", () => {
   selectedTower = 0;
+  container.classList.remove("not-allowed");
   updateTowerPreview("assets/towers/mage_guardian_blue.png");
 });
 tower2.addEventListener("click", () => {
   selectedTower = 1;
+  container.classList.remove("not-allowed");
   updateTowerPreview("assets/towers/mage_guardian_magenta.png");
 });
 tower3.addEventListener("click", () => {
   selectedTower = 2;
+  container.classList.remove("not-allowed");
   updateTowerPreview("assets/towers/mage_guardian_red.png");
 });
 cancel.addEventListener("click", () => {
   selectedTower = 3;
+  container.classList.add("not-allowed");
   hideTowerPreview();
 });
 

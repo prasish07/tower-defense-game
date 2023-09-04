@@ -588,3 +588,7 @@ button {
   opacity: 0.2;
   border-radius: 20px;
 }
+
+.not-allowed {
+  cursor: not-allowed;
+}
