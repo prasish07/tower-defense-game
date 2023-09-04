@@ -16,6 +16,10 @@ class Goblin extends Rival {
       index,
       damage: 10,
       money: 20,
+      moneyOffset: {
+        x: 0,
+        y: 0,
+      },
     });
   }
 }

@@ -1,5 +1,5 @@
 class MoneyDrop {
-  constructor(position, amount, moneyImgSrc) {
+  constructor(position, amount, moneyImgSrc, moneyOffset) {
     this.position = position;
     this.amount = amount;
     this.moneyImg = new Image();
@@ -8,6 +8,7 @@ class MoneyDrop {
     this.animationSpeed = 2;
     this.animationDistance = 40;
     this.currentAnimationDistance = 0;
+    this.moneyOffset = moneyOffset;
   }
 
   update() {
@@ -31,7 +32,7 @@ class MoneyDrop {
     ctx.fillStyle = "gold";
 
     // Calculate the position to display the amount
-    const textX = this.position.x - 25;
+    const textX = this.position.x - 25 + this.moneyOffset.x;
     const textY = drawY + 25;
 
     // Draw the amount text

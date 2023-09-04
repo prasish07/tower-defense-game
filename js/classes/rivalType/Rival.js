@@ -9,6 +9,7 @@ class Rival extends Sprite {
     offset,
     money,
     damage,
+    moneyOffset,
   }) {
     super({
       position: rivalPosition,
@@ -25,6 +26,7 @@ class Rival extends Sprite {
       x: 0,
       y: 0,
     };
+    this.moneyOffset = moneyOffset;
     // this.enemyHealth = enemyHealth ? enemyHealth : 200;
     this.enemyHealth = enemyHealth;
     this.fullHealth = this.enemyHealth;

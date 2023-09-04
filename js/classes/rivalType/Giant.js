@@ -16,6 +16,10 @@ class Giant extends Rival {
       index,
       damage: 30,
       money: 50,
+      moneyOffset: {
+        x: 0,
+        y: 0,
+      },
     });
   }
 }

@@ -8,11 +8,11 @@ class Building_2 extends Building {
         imgCount: 14,
         animationHoldTime: 15,
         slowSpeed: 0.6,
-        color: "rgba(0,0,255,0.08)",
+        color: "rgba(0,0,255,0.05)",
         hasSlowEffect: true,
         shootContinuously: false,
         type: 2,
-        radius: 200,
+        radius: 150,
       },
       projectileInfo: {
         speed: 7,

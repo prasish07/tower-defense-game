@@ -15,7 +15,11 @@ class Dragon extends Rival {
       },
       index,
       damage: 60,
-      money: 200,
+      money: 150,
+      moneyOffset: {
+        x: -15,
+        y: 0,
+      },
     });
   }
 }

@@ -254,7 +254,7 @@ customTowerPlacementArea.addEventListener("click", () => {
   selectedTile = -1;
   isEraseSelected = false;
   customLevelContainer.classList.add("mouse");
-  alert("Click on the place you have to place you tower!!!");
+  alert("Click on the map, where you want to land your tower!!!");
 });
 
 cancelBtn.addEventListener("click", () => {

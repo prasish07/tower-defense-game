@@ -416,9 +416,15 @@ const update = () => {
                 y: projectile.rival.position.y,
               };
               const moneyAmount = projectile.rival.money;
+              const moneyOffset = projectile.rival.moneyOffset;
 
               moneyDrops.push(
-                new MoneyDrop(enemyPosition, moneyAmount, moneyImgSrc)
+                new MoneyDrop(
+                  enemyPosition,
+                  moneyAmount,
+                  moneyImgSrc,
+                  moneyOffset
+                )
               );
               rivalList.splice(currentEnemyIndex, 1);
               money += moneyAmount;
@@ -456,8 +462,14 @@ const update = () => {
               if (rival.fullHealth <= 0) {
                 const moneyAmount = rival.money;
                 const enemyPosition = rival.rivalPosition;
+                const moneyOffset = rival.moneyOffset;
                 moneyDrops.push(
-                  new MoneyDrop(enemyPosition, moneyAmount, moneyImgSrc)
+                  new MoneyDrop(
+                    enemyPosition,
+                    moneyAmount,
+                    moneyImgSrc,
+                    moneyOffset
+                  )
                 );
                 // remove the rival from the array
                 rivalList.splice(j, 1);
