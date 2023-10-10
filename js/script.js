@@ -1,27 +1,35 @@
+// canvas size
 const canvasWidth = 1504;
 const canvasHeight = 672;
+
+// Getting the money from the html
 let moneyHtml = document.getElementById("money");
 let money = 0;
 money = parseInt(moneyHtml.textContent);
+
+// canvas variables
 let canvas;
 let ctx;
 let bg;
 bg = new Image();
+
 // enemy array
 let rivalList = [];
-let rivalPoised = [];
+
 // building array
 let possiblePlacementBuildings = [];
 let buildings = [];
 let setTile = undefined;
 let tower;
 let clicked = false;
+
+// To increase the amount of enemy in next level
 let increase = 1;
 
+// Checking for custom level
 let isCustomLevel = false;
 
 let frame;
-
 let isMax = false;
 
 // different towers
@@ -30,6 +38,7 @@ let tower2;
 let tower3;
 let cancel;
 
+// To show which tower is being selected
 const towerPreview = document.getElementById("towerPreview");
 const towerPreviewOffsetX = 20;
 const towerPreviewOffsetY = 20;
@@ -41,28 +50,32 @@ let explosions = [];
 let moneyDrops = [];
 const moneyImgSrc = "assets/coin/coin.svg";
 
+// To check if user have enough money for landing the tower
 let isCoinNotEnough = false;
 
-// level
+// Displaying the wave count
 let waveCount = 0;
 let wave = document.querySelector(".wave__count");
 
+// To know which tower is being currently selected
 let selectedTower = 0;
 
+// Getting different towers and cancel button
 cancel = document.getElementById("tower__0");
 tower1 = document.getElementById("tower__1");
 tower2 = document.getElementById("tower__2");
 tower3 = document.getElementById("tower__3");
 
+// Storing each tower in the tower array
 const towerElements = [tower1, tower2, tower3, cancel];
 const towerCosts = [20, 100, 500];
 
-// function which return random number between 0 to 2
+// A function which return random number between 0 to 2
 function getRandomNumber() {
   return Math.floor(Math.random() * 3);
 }
 
-// restart the game
+// Function that controls the restart of the game
 function resetGame() {
   money = 100;
   rivalList = [];
@@ -75,11 +88,14 @@ function resetGame() {
   explosions = [];
   possiblePlacementBuildings = [];
 
-  // Restart the game loop
+  // Stopping the previous the game loop
   cancelAnimationFrame(frame);
+
+  // Starting the new
   start();
 }
 
+// FUnction that controls the next level
 function nextLevelMethod() {
   cancelAnimationFrame(frame);
   money = 200;
@@ -97,6 +113,7 @@ function nextLevelMethod() {
   levelData = generateLevelData(level);
   enemyPathwayList = levelData.enemyPathwayList;
   possibleBuilding2D = levelData.possibleBuilding2D;
+  // Getting the new image of that level
   bg.src = mapArray[level - 1];
   start();
 }
@@ -185,9 +202,9 @@ cancel.addEventListener("click", () => {
   hideTowerPreview();
 });
 
+// Function which start the game
 const start = () => {
   canvas = document.getElementById("canvas");
-
   canvas.height = canvasHeight;
   canvas.width = canvasWidth;
   ctx = canvas.getContext("2d");
@@ -211,6 +228,7 @@ function hideTowerPreview() {
   towerPreview.style.display = "none";
 }
 
+// A function which gives the x and y of tower placement areas
 function creatingPossibleBuilding() {
   possibleBuilding2D.forEach((row, y) => {
     row.forEach((number, x) => {
@@ -228,14 +246,16 @@ function creatingPossibleBuilding() {
   });
 }
 
+// mouse x and y
 const mouse = {
   x: undefined,
   y: undefined,
 };
 
-// adding the building
+// handling event for click event
 window.addEventListener("click", () => {
   clicked = true;
+  // Condition to remove the tower from the placement area
   if (setTile && selectedTower === 3 && setTile.isOccupied) {
     const positionToRemove = setTile.buildingPosition;
 
@@ -253,12 +273,14 @@ window.addEventListener("click", () => {
       setTile.isOccupied = false;
     }
   }
+  // Condition to not allow the user to place tower more than 10
   if (buildings.length >= 10) {
     isMax = true;
     return;
   } else if (buildings.length < 10) {
     isMax = false;
   }
+  // Placing the tower in available placeable area
   if (setTile && !setTile.isOccupied) {
     if (selectedTower === 0 && money >= 20) {
       buildings.push(new Building_1({ position: setTile.buildingPosition }));
@@ -273,15 +295,20 @@ window.addEventListener("click", () => {
       isCoinNotEnough = true;
       return;
     }
+    // Playing the tower landing sound
     landing = playSound("assets/music/tower landing sound.mp3", false);
     setTile.isOccupied = true;
+
+    // Sorting the tower in ascending order
     buildings.sort((a, b) => {
       return a.position.y - b.position.y;
     });
   }
 });
 
+// Handling the mouse move
 window.addEventListener("mousemove", (e) => {
+  // To show the tower preview where mouse goes
   if (selectedTower !== 3) {
     towerPreview.style.left = e.clientX + towerPreviewOffsetX + "px";
     towerPreview.style.top = e.clientY + towerPreviewOffsetY + "px";
@@ -291,6 +318,8 @@ window.addEventListener("mousemove", (e) => {
   mouse.y = e.y;
   setTile = null;
   isCoinNotEnough = false;
+
+  // for checking if the tower placeable area is collided with the mouse x and y
   for (let i = 0; i < possiblePlacementBuildings.length; i++) {
     const currentTile = possiblePlacementBuildings[i];
     if (
@@ -305,30 +334,42 @@ window.addEventListener("mousemove", (e) => {
   }
 });
 
+// Function which handle the animation
 const update = () => {
   frame = requestAnimationFrame(update);
+  // cleaning the canvas
   ctx.clearRect(0, 0, canvasWidth, canvasHeight);
+
+  // Drawing the background
   ctx.drawImage(bg, 0, 0, canvasWidth, canvasHeight);
 
+  // Condition to draw the custom path when it is custom level
   if (isCustomLevel) {
     createdObject2d.forEach((row, y) => {
       row.forEach((tile, x) => {
         if (tile === 101) {
           let image = new Image();
-          image.src = "assets/cutome level editor/tile/tile1.png";
+          image.src = "assets/custom level editor/tile/tile1.png";
           ctx.drawImage(image, x * 32, y * 32, 32, 32);
         }
       });
     });
   }
 
+  // Writing the update money and wave in every frame
   moneyHtml.textContent = money;
   wave.textContent = waveCount;
   levelHtml.textContent = level;
+
+  // To place the level to 0 if it is custom level
   if (isCustomLevel) {
     levelHtml.textContent = 0;
   }
+
+  // To check if the tower placeable area in every frame
   updateTowerAvailability();
+
+  // To notify the user if user has place the maximum number of building
   if (isMax) {
     ctx.fillStyle = "white";
     ctx.font = "24px Arial";
@@ -438,23 +479,6 @@ const update = () => {
             // Apply damage to rivals within the explosion radius
             if (distanceFromExplosion <= 100) {
               rival.fullHealth -= projectile.projectileInfo.damage;
-              rivalPoised.push(
-                new Sprite({
-                  position: {
-                    x: rival.rivalPosition.x,
-                    y: rival.rivalPosition.y,
-                  },
-                  imgSrc: "assets/pngs/enemy/poisen.png",
-                  imgInfo: {
-                    imgCount: 15,
-                    animationHoldTime: 5,
-                  },
-                  fixPosition: {
-                    x: 0,
-                    y: 0,
-                  },
-                })
-              );
               if (rival.fullHealth <= 0) {
                 const moneyAmount = rival.money;
                 const enemyPosition = rival.rivalPosition;
@@ -625,7 +649,7 @@ startGame.addEventListener("click", () => {
   moneyDrops = [];
   explosions = [];
   setTimeout(() => {
-    bg.src = "assets/cutome level editor/map.png";
+    bg.src = "assets/custom level editor/map.png";
     start();
   }, 1000);
 });
@@ -659,6 +683,7 @@ restartFromStart.addEventListener("click", () => {
   start();
 });
 
+// For going to dashboard(main page)
 dashboard1.addEventListener("click", () => {
   location.reload();
 });

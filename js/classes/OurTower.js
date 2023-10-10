@@ -21,17 +21,6 @@ class OurTower {
       this.size,
       this.size
     );
-    // ctx.fillStyle = "red";
-    // ctx.beginPath();
-    // ctx.arc(
-    //   this.buildingCenter.x,
-    //   this.buildingCenter.y,
-    //   this.size,
-    //   0,
-    //   Math.PI * 2
-    // );
-    // ctx.fill();
-    // this.drawTowerHeight();
     this.drawTowerHealth();
   }
 

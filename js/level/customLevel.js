@@ -64,7 +64,7 @@ const startCustomLevelMode = () => {
   ctxEditor.fillStyle = "lightblue";
   ctxEditor.clearRect(0, 0, canvasEditorWidth, canvasEditorHeight);
   // sound = playSound("assets/music/tower defense music.mp4", true);
-  customLevelBg.src = "assets/cutome level editor/map.png";
+  customLevelBg.src = "assets/custom level editor/map.png";
   creatingSelectionArea();
   requestAnimationFrame(updateEditor);
 };
@@ -74,7 +74,7 @@ const drawObject = () => {
     row.forEach((tile, x) => {
       if (tile === 101) {
         let image = new Image();
-        image.src = "assets/cutome level editor/tile/tile1.png";
+        image.src = "assets/custom level editor/tile/tile1.png";
         ctxEditor.drawImage(image, x * 32, y * 32, 32, 32);
         tilePlaceArea.push({
           x: x,

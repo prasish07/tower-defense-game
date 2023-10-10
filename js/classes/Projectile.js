@@ -22,30 +22,6 @@ class Projectile extends Sprite {
   }
   drawProjectile() {
     super.drawSprite();
-    // ctx.beginPath();
-    // if (this.projectileInfo.shape === "ball") {
-    //   ctx.arc(
-    //     this.position.x - 15,
-    //     this.position.y - 15,
-    //     this.radius,
-    //     0,
-    //     Math.PI * 2
-    //   );
-    //   ctx.fillStyle = this.projectileInfo.color;
-    // } else if (this.projectileInfo.shape === "triangle") {
-    //   ctx.arc(
-    //     this.position.x - 15,
-    //     this.position.y - 15,
-    //     this.radius,
-    //     0,
-    //     Math.PI * 2
-    //   );
-    //   ctx.fillStyle = this.projectileInfo.color;
-    // } else if (this.projectileInfo.shape === "rectangle") {
-    //   ctx.rect(this.position.x - 15, this.position.y - 15, 10, 10);
-    //   ctx.fillStyle = this.projectileInfo.color;
-    // }
-    // ctx.fill();
   }
 
   updateProjectile() {

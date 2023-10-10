@@ -8,7 +8,7 @@ class PlaceObject {
 
   drawPosition() {
     let image = new Image();
-    image.src = "assets/cutome level editor/tile/tile1.png";
+    image.src = "assets/custom level editor/tile/tile1.png";
     if (this.number === 101) {
       ctxEditor.drawImage(
         image,
