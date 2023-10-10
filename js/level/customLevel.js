@@ -19,306 +19,304 @@ let tilePlaceArea = [];
 const saveButton = document.getElementById("saveButton");
 customLevelBg = new Image();
 const mouseMove = {
-  x: undefined,
-  y: undefined,
+	x: undefined,
+	y: undefined,
 };
 
 function clearCanvas() {
-  createdObject2d = [];
-  createdObjectList = [];
-  enemyWaypoints = [];
-  selectionAreaList = [];
-  selectionArea2d = [];
+	createdObject2d = [];
+	createdObjectList = [];
+	enemyWaypoints = [];
+	selectionAreaList = [];
+	selectionArea2d = [];
 }
 
 function drawWayPoints() {
-  enemyWaypoints.forEach((point) => {
-    ctxEditor.fillStyle = "rgba(255,0,0,0.8)";
-    ctxEditor.fillRect(point.x, point.y, 3, 3);
-  });
+	enemyWaypoints.forEach((point) => {
+		ctxEditor.fillStyle = "rgba(255,0,0,0.8)";
+		ctxEditor.fillRect(point.x, point.y, 3, 3);
+	});
 }
 
 function creatingObject() {
-  createdObject2d.forEach((row, y) => {
-    row.forEach((number, x) => {
-      if (number === 101) {
-        createdObjectList.push(
-          new PlaceObject({
-            position: {
-              x: x * 32,
-              y: y * 32,
-            },
-            number: number,
-          })
-        );
-      }
-    });
-  });
+	createdObject2d.forEach((row, y) => {
+		row.forEach((number, x) => {
+			if (number === 101) {
+				createdObjectList.push(
+					new PlaceObject({
+						position: {
+							x: x * 32,
+							y: y * 32,
+						},
+						number: number,
+					})
+				);
+			}
+		});
+	});
 }
 
 const startCustomLevelMode = () => {
-  canvasEditor = document.getElementById("editor-canvas");
-  canvasEditor.height = canvasEditorHeight;
-  canvasEditor.width = canvasEditorWidth;
-  ctxEditor = canvasEditor.getContext("2d");
-  ctxEditor.fillStyle = "lightblue";
-  ctxEditor.clearRect(0, 0, canvasEditorWidth, canvasEditorHeight);
-  // sound = playSound("assets/music/tower defense music.mp4", true);
-  customLevelBg.src = "assets/custom level editor/map.png";
-  creatingSelectionArea();
-  requestAnimationFrame(updateEditor);
+	canvasEditor = document.getElementById("editor-canvas");
+	canvasEditor.height = canvasEditorHeight;
+	canvasEditor.width = canvasEditorWidth;
+	ctxEditor = canvasEditor.getContext("2d");
+	ctxEditor.fillStyle = "lightblue";
+	ctxEditor.clearRect(0, 0, canvasEditorWidth, canvasEditorHeight);
+	// sound = playSound("assets/music/tower defense music.mp4", true);
+	customLevelBg.src = "assets/custom level editor/map.png";
+	creatingSelectionArea();
+	requestAnimationFrame(updateEditor);
 };
 
 const drawObject = () => {
-  createdObject2d.forEach((row, y) => {
-    row.forEach((tile, x) => {
-      if (tile === 101) {
-        let image = new Image();
-        image.src = "assets/custom level editor/tile/tile1.png";
-        ctxEditor.drawImage(image, x * 32, y * 32, 32, 32);
-        tilePlaceArea.push({
-          x: x,
-          y: y,
-        });
-      }
-      if (tile === 1921) {
-        ctxEditor.fillStyle = "rgba(0,255,0,0.8)";
-        ctxEditor.fillRect(x * 32, y * 32, 32 * 2, 32);
-      }
-    });
-  });
+	createdObject2d.forEach((row, y) => {
+		row.forEach((tile, x) => {
+			if (tile === 101) {
+				let image = new Image();
+				image.src = "assets/custom level editor/tile/tile1.png";
+				ctxEditor.drawImage(image, x * 32, y * 32, 32, 32);
+				tilePlaceArea.push({
+					x: x,
+					y: y,
+				});
+			}
+			if (tile === 1921) {
+				ctxEditor.fillStyle = "rgba(0,255,0,0.8)";
+				ctxEditor.fillRect(x * 32, y * 32, 32 * 2, 32);
+			}
+		});
+	});
 };
 
 const updateEditor = () => {
-  ctxEditor.clearRect(0, 0, canvasEditorWidth, canvasEditorHeight);
-  ctxEditor.drawImage(customLevelBg, 0, 0);
+	ctxEditor.clearRect(0, 0, canvasEditorWidth, canvasEditorHeight);
+	ctxEditor.drawImage(customLevelBg, 0, 0);
 
-  selectionAreaList.forEach((build) => build.updatePosition(mouseMove));
-  tilePlaceArea = [];
-  drawObject();
-  drawWayPoints();
-  ctxEditor.drawImage(towerShow, 1300, 300, 200, 200);
+	selectionAreaList.forEach((build) => build.updatePosition(mouseMove));
+	tilePlaceArea = [];
+	drawObject();
+	drawWayPoints();
+	ctxEditor.drawImage(towerShow, 1300, 300, 200, 200);
 
-  editorFrame = requestAnimationFrame(updateEditor);
+	editorFrame = requestAnimationFrame(updateEditor);
 };
 
 window.addEventListener("mousemove", (e) => {
-  mouseMove.x = e.x;
-  mouseMove.y = e.y;
+	mouseMove.x = e.x;
+	mouseMove.y = e.y;
 });
 
 editor.addEventListener("click", (e) => {
-  const clickX = e.offsetX;
-  const clickY = e.offsetY;
-  if (isWayPointedSelected) {
-    const isInsideTile = tilePlaceArea.some((tile) => {
-      // Detect collision with tile with mouse click
-      if (
-        clickX > tile.x * 32 &&
-        clickX < tile.x * 32 + 32 &&
-        clickY > tile.y * 32 &&
-        clickY < tile.y * 32 + 32
-      ) {
-        enemyWaypoints.push({ x: clickX, y: clickY });
-        return true; // Indicates that the click is inside a tile
-      }
-      return false; // Indicates that the click is outside this tile
-    });
+	const clickX = e.offsetX;
+	const clickY = e.offsetY;
+	if (isWayPointedSelected) {
+		const isInsideTile = tilePlaceArea.some((tile) => {
+			// Detect collision with tile with mouse click
+			if (
+				clickX > tile.x * 32 &&
+				clickX < tile.x * 32 + 32 &&
+				clickY > tile.y * 32 &&
+				clickY < tile.y * 32 + 32
+			) {
+				enemyWaypoints.push({ x: clickX, y: clickY });
+				return true; // Indicates that the click is inside a tile
+			}
+			return false; // Indicates that the click is outside this tile
+		});
 
-    if (!isInsideTile) {
-      alert("Waypoint is outside the tile placement area");
-    }
-  }
+		if (!isInsideTile) {
+			alert("Waypoint is outside the tile placement area");
+		}
+	}
 
-  if (isTowerPlaceableArea) {
-    const tileX = Math.floor(clickX / tileWidth);
-    const tileY = Math.floor(clickY / tileHeight);
-    const dataIndex = tileY * width + tileX;
-    if (data[dataIndex] === 20) {
-      data[dataIndex] = 1921;
-      createdObject2d = [];
-      for (let i = 0; i < data.length; i += 47) {
-        createdObject2d.push(data.slice(i, i + 47));
-      }
-      creatingObject();
-    } else {
-      alert("This place is occupied, Please select any other place!!!");
-    }
-  }
+	if (isTowerPlaceableArea) {
+		const tileX = Math.floor(clickX / tileWidth);
+		const tileY = Math.floor(clickY / tileHeight);
+		const dataIndex = tileY * width + tileX;
+		if (data[dataIndex] === 20) {
+			data[dataIndex] = 1921;
+			createdObject2d = [];
+			for (let i = 0; i < data.length; i += 47) {
+				createdObject2d.push(data.slice(i, i + 47));
+			}
+			creatingObject();
+		} else {
+			alert("This place is occupied, Please select any other place!!!");
+		}
+	}
 
-  if (isEraseSelected) {
-    const tileX = Math.floor(clickX / tileWidth);
-    const tileY = Math.floor(clickY / tileHeight);
-    const dataIndex = tileY * width + tileX;
-    if (data[dataIndex] === 1921 || data[dataIndex] === 101) {
-      data[dataIndex] = 20;
+	if (isEraseSelected) {
+		const tileX = Math.floor(clickX / tileWidth);
+		const tileY = Math.floor(clickY / tileHeight);
+		const dataIndex = tileY * width + tileX;
+		if (data[dataIndex] === 1921 || data[dataIndex] === 101) {
+			data[dataIndex] = 20;
 
-      tilePlaceArea = tilePlaceArea.filter(
-        (tile) => !(tile.x === tileX && tile.y === tileY)
-      );
+			tilePlaceArea = tilePlaceArea.filter(
+				(tile) => !(tile.x === tileX && tile.y === tileY)
+			);
 
-      createdObject2d = [];
-      for (let i = 0; i < data.length; i += 47) {
-        createdObject2d.push(data.slice(i, i + 47));
-      }
-      creatingObject();
-    } else {
-      // you cannot remove this message
-    }
-  }
+			createdObject2d = [];
+			for (let i = 0; i < data.length; i += 47) {
+				createdObject2d.push(data.slice(i, i + 47));
+			}
+			creatingObject();
+		}
+	}
 
-  if (enemyWaypoints.length > 15 && isWayPointedSelected) {
-    // Display a message indicating that at least 6 waypoints are selected with alert
-    alert("You have selected 15 waypoints");
+	if (enemyWaypoints.length > 15 && isWayPointedSelected) {
+		// Display a message indicating that at least 15 waypoints are selected with alert
+		alert("You have selected 15 waypoints");
 
-    isWayPointedSelected = false;
-  }
+		isWayPointedSelected = false;
+	}
 
-  selectionAreaList = [];
-  selectionArea2d = [];
-  for (let i = 0; i < data.length; i += 47) {
-    selectionArea2d.push(data.slice(i, i + 47));
-  }
-  creatingSelectionArea();
+	selectionAreaList = [];
+	selectionArea2d = [];
+	for (let i = 0; i < data.length; i += 47) {
+		selectionArea2d.push(data.slice(i, i + 47));
+	}
+	creatingSelectionArea();
 });
 
 editor.addEventListener("mousedown", (e) => {
-  let isMouseDown = true;
+	let isMouseDown = true;
 
-  const performAction = () => {
-    if (isMouseDown && selectedTile === 1) {
-      const clickX = mouseMove.x;
-      const clickY = mouseMove.y;
-      const tileX = Math.floor(clickX / tileWidth);
-      const tileY = Math.floor(clickY / tileHeight);
-      const dataIndex = tileY * width + tileX;
-      data[dataIndex] = 101;
-      createdObject2d = [];
-      for (let i = 0; i < data.length; i += 47) {
-        createdObject2d.push(data.slice(i, i + 47));
-      }
-      creatingObject();
-    }
-  };
+	const performAction = () => {
+		if (isMouseDown && selectedTile === 1) {
+			const clickX = mouseMove.x;
+			const clickY = mouseMove.y;
+			const tileX = Math.floor(clickX / tileWidth);
+			const tileY = Math.floor(clickY / tileHeight);
+			const dataIndex = tileY * width + tileX;
+			data[dataIndex] = 101;
+			createdObject2d = [];
+			for (let i = 0; i < data.length; i += 47) {
+				createdObject2d.push(data.slice(i, i + 47));
+			}
+			creatingObject();
+		}
+	};
 
-  performAction();
-  const actionInterval = setInterval(performAction, 100);
-  const onMouseUp = () => {
-    editor.removeEventListener("mouseup", onMouseUp);
-    isMouseDown = false;
-    clearInterval(actionInterval);
-  };
+	performAction();
+	const actionInterval = setInterval(performAction, 100);
+	const onMouseUp = () => {
+		editor.removeEventListener("mouseup", onMouseUp);
+		isMouseDown = false;
+		clearInterval(actionInterval);
+	};
 
-  editor.addEventListener("mouseup", onMouseUp);
+	editor.addEventListener("mouseup", onMouseUp);
 });
 
 // btn click events
 
 tile1.addEventListener("click", () => {
-  selectedTile = 1;
-  isTowerPlaceableArea = false;
-  isWayPointedSelected = false;
-  isEraseSelected = false;
-  customLevelContainer.classList.add("mouse");
+	selectedTile = 1;
+	isTowerPlaceableArea = false;
+	isWayPointedSelected = false;
+	isEraseSelected = false;
+	customLevelContainer.classList.add("mouse");
 });
 
 eraseBtn.addEventListener("click", () => {
-  selectedTile = -1;
-  isTowerPlaceableArea = false;
-  isWayPointedSelected = false;
-  isEraseSelected = true;
-  customLevelContainer.classList.add("mouse");
+	selectedTile = -1;
+	isTowerPlaceableArea = false;
+	isWayPointedSelected = false;
+	isEraseSelected = true;
+	customLevelContainer.classList.add("mouse");
 });
 
 customTowerPlacementArea.addEventListener("click", () => {
-  isTowerPlaceableArea = true;
-  isWayPointedSelected = false;
-  selectedTile = -1;
-  isEraseSelected = false;
-  customLevelContainer.classList.add("mouse");
-  alert("Click on the map, where you want to land your tower!!!");
+	isTowerPlaceableArea = true;
+	isWayPointedSelected = false;
+	selectedTile = -1;
+	isEraseSelected = false;
+	customLevelContainer.classList.add("mouse");
+	alert("Click on the map, where you want to land your tower!!!");
 });
 
 cancelBtn.addEventListener("click", () => {
-  selectedTile = -1;
-  isTowerPlaceableArea = false;
-  isWayPointedSelected = false;
-  isEraseSelected = false;
-  customLevelContainer.classList.remove("mouse");
+	selectedTile = -1;
+	isTowerPlaceableArea = false;
+	isWayPointedSelected = false;
+	isEraseSelected = false;
+	customLevelContainer.classList.remove("mouse");
 });
 
 wayPoint.addEventListener("click", () => {
-  if (tilePlaceArea.length === 0) {
-    alert("Please place a tile first");
-    return;
-  }
-  alert("Make sure to point at least one point to collide with our castle!!!");
+	if (tilePlaceArea.length === 0) {
+		alert("Please place a tile first");
+		return;
+	}
+	alert("Make sure to point at least one point to collide with our castle!!!");
 
-  isWayPointedSelected = true;
-  isTowerPlaceableArea = false;
-  selectedTile = -1;
-  isEraseSelected = false;
+	isWayPointedSelected = true;
+	isTowerPlaceableArea = false;
+	selectedTile = -1;
+	isEraseSelected = false;
 });
 
 customLevel.addEventListener("click", () => {
-  gameStarting.style.display = "none";
-  container.style.display = "none";
-  customLevelContainer.style.display = "flex";
-  startCustomLevelMode();
+	gameStarting.style.display = "none";
+	container.style.display = "none";
+	customLevelContainer.style.display = "flex";
+	startCustomLevelMode();
 });
 
 gameOverCustomBtn.addEventListener("click", () => {
-  cancelAnimationFrame(editorFrame);
-  if (isCustomLevel) {
-    ctxEditor.clearRect(0, 0, canvasEditorWidth, canvasEditorHeight);
-  }
-  clearCanvas();
-  gameStarting.style.display = "none";
-  gameOver.style.display = "none";
-  container.style.display = "none";
-  customLevelContainer.style.display = "flex";
-  selectionArea2d = [];
-  selectionAreaList = [];
-  for (let i = 0; i < data2.length; i += 47) {
-    selectionArea2d.push(data2.slice(i, i + 47));
-  }
-  creatingSelectionArea();
-  data = [];
-  data = [...data2];
-  startCustomLevelMode();
+	cancelAnimationFrame(editorFrame);
+	if (isCustomLevel) {
+		ctxEditor.clearRect(0, 0, canvasEditorWidth, canvasEditorHeight);
+	}
+	clearCanvas();
+	gameStarting.style.display = "none";
+	gameOver.style.display = "none";
+	container.style.display = "none";
+	customLevelContainer.style.display = "flex";
+	selectionArea2d = [];
+	selectionAreaList = [];
+	for (let i = 0; i < data2.length; i += 47) {
+		selectionArea2d.push(data2.slice(i, i + 47));
+	}
+	creatingSelectionArea();
+	data = [];
+	data = [...data2];
+	startCustomLevelMode();
 });
 
 gameCompletedCustomBtn.addEventListener("click", () => {
-  cancelAnimationFrame(editorFrame);
-  ctxEditor.clearRect(0, 0, canvasEditorWidth, canvasEditorHeight);
-  clearCanvas();
-  gameStarting.style.display = "none";
-  gameCompletedContainer.style.display = "none";
-  container.style.display = "none";
-  customLevelContainer.style.display = "flex";
-  selectionArea2d = [];
-  selectionAreaList = [];
-  for (let i = 0; i < data2.length; i += 47) {
-    selectionArea2d.push(data2.slice(i, i + 47));
-  }
-  creatingSelectionArea();
-  data = [];
-  data = [...data2];
-  startCustomLevelMode();
+	cancelAnimationFrame(editorFrame);
+	ctxEditor.clearRect(0, 0, canvasEditorWidth, canvasEditorHeight);
+	clearCanvas();
+	gameStarting.style.display = "none";
+	gameCompletedContainer.style.display = "none";
+	container.style.display = "none";
+	customLevelContainer.style.display = "flex";
+	selectionArea2d = [];
+	selectionAreaList = [];
+	for (let i = 0; i < data2.length; i += 47) {
+		selectionArea2d.push(data2.slice(i, i + 47));
+	}
+	creatingSelectionArea();
+	data = [];
+	data = [...data2];
+	startCustomLevelMode();
 });
 
 helpBtn.addEventListener("click", () => {
-  document.querySelector(".help-popup").style.display = "flex";
+	document.querySelector(".help-popup").style.display = "flex";
 });
 
 closePopup.addEventListener("click", () => {
-  document.querySelector(".help-popup").style.display = "none";
+	document.querySelector(".help-popup").style.display = "none";
 });
 
 deleteWaypoints.addEventListener("click", () => {
-  enemyWaypoints = [];
-  isWayPointedSelected = false;
-  isTowerPlaceableArea = false;
-  selectedTile = -1;
-  isEraseSelected = false;
+	enemyWaypoints = [];
+	isWayPointedSelected = false;
+	isTowerPlaceableArea = false;
+	selectedTile = -1;
+	isEraseSelected = false;
 });
